@@ -349,18 +349,6 @@
         width: 100%;
       }
 
-      .main-image,
-      .event-video {
-        width: 100%;
-        height: 450px;
-        object-fit: cover;
-        border-radius: 20px;
-        margin-bottom: 30px;
-        position: relative;
-        z-index: 2;
-      }
-
-      .video-container,
       .video_container {
         position: relative;
         display: block;
@@ -371,7 +359,7 @@
       .youtube-container {
         position: relative;
         width: 100%;
-        aspect-ratio: 16/9; /* Horizontal/landscape aspect ratio */
+        aspect-ratio: 16/9;
         border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -380,56 +368,19 @@
         background: #000;
       }
 
+      .youtube-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 212, 170, 0.3);
+        border-color: rgba(0, 212, 170, 0.4);
+      }
+
       .event-video {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Fills the container */
         border-radius: 20px;
         display: block;
-      }
-      .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-      }
-
-      .video-container:hover .video-overlay,
-      .video_container:hover .video-overlay {
-        opacity: 1;
-        pointer-events: all;
-      }
-
-      .play-button {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-      }
-
-      .play-button:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(1.1);
-      }
-
-      .play-button span {
-        font-size: 24px;
+        object-fit: cover;
+        background: #000;
       }
 
       .rocket-icon {
@@ -652,13 +603,9 @@
           grid-template-columns: repeat(4, 1fr);
         }
 
-        .main-image,
-        .event-video {
-          height: 300px;
-        }
-
         .youtube-container {
-          height: 300px;
+          width: 100%;
+          aspect-ratio: 16/9;
         }
       }
 
@@ -681,13 +628,9 @@
           align-items: stretch;
         }
 
-        .main-image,
-        .event-video {
-          height: 250px;
-        }
-
         .youtube-container {
-          height: 250px;
+          width: 100%;
+          aspect-ratio: 16/9;
         }
       }
     </style>
@@ -759,23 +702,10 @@
           <div class="video_container">
             <div class="rocket-icon">🚀</div>
             <div class="youtube-container">
-              <video
-                class="event-video"
-                autoplay
-                muted
-                loop
-                playsinline
-                controls
-              >
-                <source src="assets/crsconclaveVid.mp4" type="video/mp4" />
-
+              <video class="event-video" autoplay muted loop playsinline>
+                <source src="./assets/conclave-video.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-            </div>
-            <div class="video-overlay">
-              <div class="play-button" onclick="toggleVideo()">
-                <span id="play-icon">⏸️</span>
-              </div>
             </div>
           </div>
         </div>
@@ -783,19 +713,6 @@
     </section>
 
     <script>
-      function toggleVideo() {
-        const video = document.querySelector(".event-video");
-        const playIcon = document.getElementById("play-icon");
-
-        if (video.paused) {
-          video.play();
-          playIcon.textContent = "⏸️";
-        } else {
-          video.pause();
-          playIcon.textContent = "▶️";
-        }
-      }
-
       // Mobile menu toggle functionality
       const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
       const navMenu = document.getElementById("nav-menu");
@@ -846,28 +763,6 @@
         card.addEventListener("mouseleave", function () {
           this.style.transform = "translateY(0) scale(1)";
         });
-      });
-
-      // Optional: Auto-hide controls after a few seconds
-      document.addEventListener("DOMContentLoaded", function () {
-        const videoContainer = document.querySelector(".video_container");
-        const overlay = document.querySelector(".video-overlay");
-        let hideTimeout;
-
-        if (videoContainer && overlay) {
-          videoContainer.addEventListener("mousemove", function () {
-            overlay.style.opacity = "1";
-            overlay.style.pointerEvents = "all";
-
-            clearTimeout(hideTimeout);
-            hideTimeout = setTimeout(() => {
-              if (!videoContainer.matches(":hover")) {
-                overlay.style.opacity = "0";
-                overlay.style.pointerEvents = "none";
-              }
-            }, 2000);
-          });
-        }
       });
     </script>
   </body>
