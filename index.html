@@ -358,10 +358,8 @@
 
       .youtube-container {
         position: relative;
-        width: 60%;
-        max-width: 450px;
-        margin: 0 auto;
-        aspect-ratio: 9/16;
+        width: 100%;
+        aspect-ratio: 16/9;
         border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -383,6 +381,7 @@
         display: block;
         object-fit: cover;
         background: #000;
+        transform: scale(1.8);
       }
 
       .rocket-icon {
@@ -606,9 +605,12 @@
         }
 
         .youtube-container {
-          width: 70%;
-          max-width: 400px;
-          aspect-ratio: 9/16;
+          width: 100%;
+          aspect-ratio: 16/9;
+        }
+
+        .event-video {
+          transform: scale(1.5);
         }
       }
 
@@ -632,9 +634,12 @@
         }
 
         .youtube-container {
-          width: 85%;
-          max-width: 100%;
-          aspect-ratio: 9/16;
+          width: 100%;
+          aspect-ratio: 16/9;
+        }
+
+        .event-video {
+          transform: scale(1.5);
         }
       }
     </style>
