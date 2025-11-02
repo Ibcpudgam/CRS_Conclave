@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <title>Privacy Policy - CRS Conclave 2.0</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: #0a0015;
+        background-image: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 58, 237, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(168, 85, 247, 0.4) 0%,
+            transparent 50%
+          );
+        min-height: 100vh;
+        color: white;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(10, 0, 21, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+      }
+
+      .nav-logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.2;
+      }
+
+      .nav-logo-tagline {
+        font-size: 11px;
+        font-weight: normal;
+        font-style: italic;
+        opacity: 0.8;
+        color: #00d4aa;
+        background: none;
+        -webkit-text-fill-color: #00d4aa;
+        margin-top: 2px;
+      }
+
+      .back-btn {
+        background: linear-gradient(135deg, #00d4aa, #00a085);
+        color: white;
+        padding: 10px 24px;
+        border: none;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 212, 170, 0.3);
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 120px 20px 60px;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .page-title {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .page-subtitle {
+        font-size: 18px;
+        opacity: 0.8;
+        color: #00d4aa;
+      }
+
+      .content-box {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .content-text {
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        opacity: 0.9;
+      }
+
+      .content-list {
+        margin: 15px 0;
+        padding-left: 25px;
+      }
+
+      .content-list li {
+        margin-bottom: 12px;
+        line-height: 1.6;
+        opacity: 0.9;
+      }
+
+      .highlight {
+        color: #00d4aa;
+        font-weight: 600;
+      }
+
+      .last-updated {
+        text-align: center;
+        opacity: 0.7;
+        font-size: 14px;
+        margin-top: 30px;
+      }
+
+      .notice-box {
+        background: rgba(0, 212, 170, 0.1);
+        border: 2px solid rgba(0, 212, 170, 0.3);
+        border-radius: 16px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      @media (max-width: 768px) {
+        .page-title {
+          font-size: 36px;
+        }
+
+        .content-box {
+          padding: 24px;
+        }
+
+        .nav-container {
+          padding: 0 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+          <span>CRS Conclave 2.0</span>
+          <span class="nav-logo-tagline"
+            >Innovate. Collaborate. Transform.</span
+          >
+        </a>
+        <a href="register.html" class="back-btn">← Back to Registration</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="page-subtitle">Your privacy and data security matter to us</p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">Introduction</h2>
+        <p class="content-text">
+          Welcome to CRS Conclave 2.0. This Privacy Policy explains how we
+          collect, use, protect, and share information when you register for and
+          participate in our event. By submitting your registration, you consent
+          to the data practices described in this policy.
+        </p>
+        <p class="content-text">
+          We are committed to protecting your privacy and ensuring the security
+          of your personal information in compliance with applicable data
+          protection laws.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">1. Information We Collect</h2>
+        <p class="content-text">
+          When you register for CRS Conclave 2.0, we collect the following
+          information:
+        </p>
+
+        <h3 style="color: #00d4aa; margin: 20px 0 10px 0; font-size: 18px">
+          Team Information:
+        </h3>
+        <ul class="content-list">
+          <li>Team name</li>
+          <li>Number of team members</li>
+        </ul>
+
+        <h3 style="color: #00d4aa; margin: 20px 0 10px 0; font-size: 18px">
+          School Information:
+        </h3>
+        <ul class="content-list">
+          <li>School name</li>
+          <li>Supervising teacher's name, email, and phone number</li>
+        </ul>
+
+        <h3 style="color: #00d4aa; margin: 20px 0 10px 0; font-size: 18px">
+          Participant Information:
+        </h3>
+        <ul class="content-list">
+          <li>Full name of each team member</li>
+          <li>Grade/class level</li>
+          <li>Email addresses</li>
+          <li>Phone numbers</li>
+        </ul>
+
+        <h3 style="color: #00d4aa; margin: 20px 0 10px 0; font-size: 18px">
+          Technical Information:
+        </h3>
+        <ul class="content-list">
+          <li>Registration timestamp and date</li>
+          <li>Browser type and device information (user agent)</li>
+          <li>IP address (automatically collected)</li>
+          <li>Page referral information</li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">2. How We Use Your Information</h2>
+        <p class="content-text">
+          We collect and use your information for the following purposes:
+        </p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">Event Management:</span> To process
+            registrations, manage participant records, and organize event
+            logistics
+          </li>
+          <li>
+            <span class="highlight">Communication:</span> To send event updates,
+            schedules, important announcements, and emergency notifications
+          </li>
+          <li>
+            <span class="highlight">Verification:</span> To verify eligibility
+            and prevent duplicate registrations
+          </li>
+          <li>
+            <span class="highlight">Safety and Security:</span> To ensure the
+            safety of participants and maintain event security
+          </li>
+          <li>
+            <span class="highlight">Competition Administration:</span> To manage
+            team assignments, scoring, and results
+          </li>
+          <li>
+            <span class="highlight">Certificates and Recognition:</span> To
+            create and distribute participation certificates and awards
+          </li>
+          <li>
+            <span class="highlight">Future Events:</span> To inform you about
+            future CRS Conclave events (you may opt out)
+          </li>
+          <li>
+            <span class="highlight">Analysis and Improvement:</span> To analyze
+            participation trends and improve future events
+          </li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">3. Data Storage and Security</h2>
+        <p class="content-text">
+          We take the security of your personal information seriously and
+          implement appropriate measures to protect it:
+        </p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">Cloud Storage:</span> Your data is stored
+            securely on Firebase (Google Cloud Platform), which uses
+            industry-standard encryption and security protocols
+          </li>
+          <li>
+            <span class="highlight">Access Control:</span> Only authorized
+            organizers and administrators have access to participant data
+          </li>
+          <li>
+            <span class="highlight">Encryption:</span> Data transmission is
+            encrypted using HTTPS/SSL protocols
+          </li>
+          <li>
+            <span class="highlight">Regular Backups:</span> We maintain secure
+            backups to prevent data loss
+          </li>
+          <li>
+            <span class="highlight">Limited Retention:</span> Personal data is
+            retained only as long as necessary for event purposes
+          </li>
+        </ul>
+
+        <div class="notice-box">
+          <p style="margin: 0; font-weight: 600; color: #00d4aa">
+            🔒 Security Notice: While we implement robust security measures, no
+            system is 100% secure. We continuously monitor and update our
+            security practices to protect your information.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">4. Information Sharing and Disclosure</h2>
+        <p class="content-text">
+          We do not sell, rent, or trade your personal information. We may share
+          information only in the following circumstances:
+        </p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">School Authorities:</span> With supervising
+            teachers and school administrators for coordination purposes
+          </li>
+          <li>
+            <span class="highlight">Event Partners:</span> With sponsors,
+            judges, and venue partners as necessary for event operations
+            (limited to essential information only)
+          </li>
+          <li>
+            <span class="highlight">Public Recognition:</span> Team names and
+            school names may be displayed publicly on scoreboards, certificates,
+            and promotional materials
+          </li>
+          <li>
+            <span class="highlight">Legal Requirements:</span> When required by
+            law or to protect rights, property, or safety
+          </li>
+          <li>
+            <span class="highlight">With Consent:</span> With your explicit
+            consent for specific purposes
+          </li>
+        </ul>
+
+        <p class="content-text">
+          <span class="highlight">We will never share:</span> Individual contact
+          details (email addresses and phone numbers) with third parties without
+          explicit consent.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">5. Photography and Media</h2>
+        <p class="content-text">
+          During CRS Conclave 2.0, we may capture photographs, videos, and
+          recordings of event activities. By participating, you consent to:
+        </p>
+        <ul class="content-list">
+          <li>Being photographed or recorded during event activities</li>
+          <li>
+            Use of such media for promotional, educational, and archival
+            purposes
+          </li>
+          <li>
+            Publication on official websites, social media, and marketing
+            materials
+          </li>
+        </ul>
+        <p class="content-text">
+          If you do not wish to be photographed or recorded, please inform event
+          organizers in advance, and we will make reasonable efforts to
+          accommodate your request.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">6. Cookies and Tracking</h2>
+        <p class="content-text">Our registration website may use:</p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">Essential Cookies:</span> Required for basic
+            website functionality and registration process
+          </li>
+          <li>
+            <span class="highlight">Analytics:</span> To understand how visitors
+            use our website and improve user experience
+          </li>
+          <li>
+            <span class="highlight">Firebase Analytics:</span> To monitor
+            registration system performance and troubleshoot issues
+          </li>
+        </ul>
+        <p class="content-text">
+          We do not use advertising or third-party tracking cookies.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">7. Children's Privacy</h2>
+        <p class="content-text">
+          CRS Conclave 2.0 is designed for students in grades 9-12, many of whom
+          may be under 18 years of age. We are committed to protecting
+          children's privacy:
+        </p>
+        <ul class="content-list">
+          <li>
+            We require parental/guardian consent for participants under 18
+          </li>
+          <li>We collect only information necessary for event participation</li>
+          <li>Teacher supervision is mandatory for all teams</li>
+          <li>
+            We do not knowingly collect unnecessary personal information from
+            minors
+          </li>
+          <li>We implement age-appropriate privacy protections</li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">8. Your Rights and Choices</h2>
+        <p class="content-text">
+          You have the following rights regarding your personal information:
+        </p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">Access:</span> Request a copy of the
+            personal information we hold about you
+          </li>
+          <li>
+            <span class="highlight">Correction:</span> Request correction of
+            inaccurate or incomplete information
+          </li>
+          <li>
+            <span class="highlight">Deletion:</span> Request deletion of your
+            personal information (subject to legal obligations)
+          </li>
+          <li>
+            <span class="highlight">Opt-Out:</span> Unsubscribe from promotional
+            communications while still receiving essential event updates
+          </li>
+          <li>
+            <span class="highlight">Withdrawal:</span> Withdraw your
+            registration and consent (may result in inability to participate)
+          </li>
+        </ul>
+
+        <p class="content-text">
+          To exercise these rights, please contact us at:
+          <span class="highlight">privacy@crsconclave.com</span>
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">9. Data Retention</h2>
+        <p class="content-text">
+          We retain personal information for different periods depending on the
+          purpose:
+        </p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">Registration Data:</span> Retained for the
+            duration of the event and up to 2 years afterward for records and
+            future event planning
+          </li>
+          <li>
+            <span class="highlight">Communication Records:</span> Retained for 1
+            year after the event
+          </li>
+          <li>
+            <span class="highlight">Photos and Media:</span> Retained
+            indefinitely for archival and promotional purposes (with option to
+            request removal)
+          </li>
+          <li>
+            <span class="highlight">Anonymous Statistics:</span> May be retained
+            indefinitely for analysis
+          </li>
+        </ul>
+        <p class="content-text">
+          After retention periods expire, personal information is securely
+          deleted or anonymized.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">10. Third-Party Services</h2>
+        <p class="content-text">
+          We use the following third-party services that may process your
+          information:
+        </p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">Firebase (Google):</span> For database
+            storage and authentication
+          </li>
+          <li>
+            <span class="highlight">Email Service Providers:</span> For sending
+            event communications
+          </li>
+          <li>
+            <span class="highlight">Cloud Hosting:</span> For website hosting
+            and data storage
+          </li>
+        </ul>
+        <p class="content-text">
+          These services have their own privacy policies and security measures.
+          We choose providers that maintain high data protection standards.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">11. International Data Transfers</h2>
+        <p class="content-text">
+          Your information may be transferred to and stored on servers located
+          outside your country. By registering, you consent to such transfers.
+          We ensure that adequate safeguards are in place when transferring data
+          internationally.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">12. Changes to This Privacy Policy</h2>
+        <p class="content-text">
+          We may update this Privacy Policy from time to time to reflect changes
+          in our practices or legal requirements. We will notify registered
+          participants of significant changes via email. The "Last Updated" date
+          at the bottom indicates when the policy was last revised.
+        </p>
+        <p class="content-text">
+          Continued participation after policy updates constitutes acceptance of
+          the revised policy.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">13. Contact Us</h2>
+        <p class="content-text">
+          If you have questions, concerns, or requests regarding this Privacy
+          Policy or your personal information, please contact us:
+        </p>
+        <div style="margin: 20px 0">
+          <p class="content-text">
+            <span class="highlight">Email:</span> ibcpudgam@gmail.com
+          </p>
+        </div>
+        <p class="content-text">
+          We will respond to your requests within 30 days.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">14. Consent</h2>
+        <p class="content-text">
+          By checking the consent box during registration, you acknowledge that:
+        </p>
+        <ul class="content-list">
+          <li>You have read and understood this Privacy Policy</li>
+          <li>
+            You consent to the collection, use, and processing of your personal
+            information as described
+          </li>
+          <li>
+            You have obtained necessary parental/guardian consent if under 18
+          </li>
+          <li>You agree to receive essential event communications</li>
+          <li>You understand your rights and how to exercise them</li>
+        </ul>
+      </div>
+
+      <div class="notice-box" style="margin-top: 40px">
+        <p style="margin: 0; text-align: center; font-weight: 600">
+          🛡️ Your Trust Matters<br />
+          <span style="opacity: 0.9; font-weight: normal; font-size: 14px">
+            We are committed to protecting your privacy and handling your data
+            responsibly. If you have any concerns, please don't hesitate to
+            contact us.
+          </span>
+        </p>
+      </div>
+
+      <p class="last-updated">
+        Last Updated: November 2025<br />
+        CRS Conclave 2.0 - Innovate. Collaborate. Transform.
+      </p>
+    </div>
+  </body>
+</html>

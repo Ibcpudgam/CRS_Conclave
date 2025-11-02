@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <title>Terms and Conditions - CRS Conclave 2.0</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: #0a0015;
+        background-image: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 58, 237, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(168, 85, 247, 0.4) 0%,
+            transparent 50%
+          );
+        min-height: 100vh;
+        color: white;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(10, 0, 21, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+      }
+
+      .nav-logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.2;
+      }
+
+      .nav-logo-tagline {
+        font-size: 11px;
+        font-weight: normal;
+        font-style: italic;
+        opacity: 0.8;
+        color: #00d4aa;
+        background: none;
+        -webkit-text-fill-color: #00d4aa;
+        margin-top: 2px;
+      }
+
+      .back-btn {
+        background: linear-gradient(135deg, #00d4aa, #00a085);
+        color: white;
+        padding: 10px 24px;
+        border: none;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 212, 170, 0.3);
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 120px 20px 60px;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .page-title {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .page-subtitle {
+        font-size: 18px;
+        opacity: 0.8;
+        color: #00d4aa;
+      }
+
+      .content-box {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .content-text {
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        opacity: 0.9;
+      }
+
+      .content-list {
+        margin: 15px 0;
+        padding-left: 25px;
+      }
+
+      .content-list li {
+        margin-bottom: 12px;
+        line-height: 1.6;
+        opacity: 0.9;
+      }
+
+      .highlight {
+        color: #00d4aa;
+        font-weight: 600;
+      }
+
+      .last-updated {
+        text-align: center;
+        opacity: 0.7;
+        font-size: 14px;
+        margin-top: 30px;
+      }
+
+      @media (max-width: 768px) {
+        .page-title {
+          font-size: 36px;
+        }
+
+        .content-box {
+          padding: 24px;
+        }
+
+        .nav-container {
+          padding: 0 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+          <span>CRS Conclave 2.0</span>
+          <span class="nav-logo-tagline"
+            >Innovate. Collaborate. Transform.</span
+          >
+        </a>
+        <a href="register.html" class="back-btn">← Back to Registration</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Terms and Conditions</h1>
+        <p class="page-subtitle">
+          Please read these terms carefully before registering
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">1. Acceptance of Terms</h2>
+        <p class="content-text">
+          By registering for CRS Conclave 2.0, you acknowledge that you have
+          read, understood, and agree to be bound by these Terms and Conditions.
+          If you do not agree to these terms, please do not complete the
+          registration process.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">2. Eligibility</h2>
+        <p class="content-text">
+          CRS Conclave 2.0 is open to students in grades 9-12. Each team must
+          consist of 2-4 members from the same school. Participants must:
+        </p>
+        <ul class="content-list">
+          <li>Be currently enrolled in grades 9, 10, 11, or 12</li>
+          <li>
+            Have written consent from a supervising teacher or school authority
+          </li>
+          <li>Provide accurate and complete information during registration</li>
+          <li>Have parental/guardian consent if under 18 years of age</li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">3. Team Registration</h2>
+        <p class="content-text">Team registration requirements include:</p>
+        <ul class="content-list">
+          <li>
+            <span class="highlight">Team Size:</span> Each team must have a
+            minimum of 2 members and a maximum of 4 members
+          </li>
+          <li>
+            <span class="highlight">Team Composition:</span> All team members
+            must be from the same school
+          </li>
+          <li>
+            <span class="highlight">Unique Participation:</span> Each student
+            can only be part of one team
+          </li>
+          <li>
+            <span class="highlight">Complete Information:</span> All required
+            fields must be filled accurately
+          </li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">4. Competition Rules</h2>
+        <p class="content-text">Participants agree to:</p>
+        <ul class="content-list">
+          <li>
+            Comply with all competition rules and guidelines as announced by
+            organizers
+          </li>
+          <li>Maintain academic integrity and honesty throughout all events</li>
+          <li>
+            Respect fellow participants, judges, organizers, and venue staff
+          </li>
+          <li>
+            Use only permitted resources and materials during competitions
+          </li>
+          <li>Accept the decisions of judges as final and binding</li>
+          <li>Attend all scheduled events and activities on time</li>
+          <li>Follow the code of conduct established for the conclave</li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">5. Conduct and Behavior</h2>
+        <p class="content-text">
+          All participants must maintain professional and respectful behavior.
+          The following are strictly prohibited:
+        </p>
+        <ul class="content-list">
+          <li>Plagiarism, cheating, or any form of academic dishonesty</li>
+          <li>Harassment, discrimination, or bullying of any kind</li>
+          <li>Disruptive or inappropriate behavior</li>
+          <li>Violation of venue rules and safety protocols</li>
+          <li>Misrepresentation of work or credentials</li>
+        </ul>
+        <p class="content-text">
+          <span class="highlight"
+            >Violation of conduct rules may result in immediate disqualification
+            and removal from the event.</span
+          >
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">6. Intellectual Property</h2>
+        <p class="content-text">
+          Participants retain ownership of their original work created during
+          the conclave. However, by participating, you grant CRS Conclave 2.0
+          organizers:
+        </p>
+        <ul class="content-list">
+          <li>
+            The right to display, publish, and promote submitted work for
+            educational and promotional purposes
+          </li>
+          <li>
+            Permission to photograph, record, and share event activities on
+            official platforms
+          </li>
+          <li>
+            The right to use participant names and school affiliations in
+            promotional materials
+          </li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">7. Liability and Responsibility</h2>
+        <p class="content-text">
+          CRS Conclave 2.0 organizers, sponsors, and venue providers will not be
+          held liable for:
+        </p>
+        <ul class="content-list">
+          <li>Personal injury, loss, or damage to property during the event</li>
+          <li>Technical difficulties or equipment failures</li>
+          <li>Travel arrangements or transportation issues</li>
+          <li>
+            Cancellation or modification of events due to unforeseen
+            circumstances
+          </li>
+        </ul>
+        <p class="content-text">
+          Participants and supervising teachers are responsible for their own
+          safety, belongings, and travel arrangements.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">8. Changes and Modifications</h2>
+        <p class="content-text">
+          CRS Conclave 2.0 organizers reserve the right to:
+        </p>
+        <ul class="content-list">
+          <li>Modify event schedules, venues, or formats if necessary</li>
+          <li>
+            Update competition rules and guidelines with reasonable notice
+          </li>
+          <li>Cancel or postpone events due to circumstances beyond control</li>
+          <li>Disqualify teams for violation of terms or misconduct</li>
+        </ul>
+        <p class="content-text">
+          Participants will be notified of any significant changes via
+          registered email addresses.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">9. Communication</h2>
+        <p class="content-text">By registering, you consent to receive:</p>
+        <ul class="content-list">
+          <li>Event updates and announcements via email</li>
+          <li>Important notifications regarding schedule changes</li>
+          <li>Post-event feedback surveys and information</li>
+          <li>Future event promotions (with option to opt-out)</li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">10. Contact Information</h2>
+        <p class="content-text">
+          For questions or concerns regarding these Terms and Conditions, please
+          contact:
+        </p>
+        <p class="content-text">
+          <span class="highlight">Email:</span> ibcpudgam@gmail.com
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h2 class="section-title">11. Acceptance</h2>
+        <p class="content-text">
+          By checking the agreement box and submitting your registration, you
+          confirm that:
+        </p>
+        <ul class="content-list">
+          <li>
+            You have read and understood these Terms and Conditions in their
+            entirety
+          </li>
+          <li>You agree to abide by all rules and guidelines</li>
+          <li>All information provided is accurate and complete</li>
+          <li>
+            You have obtained necessary permissions from school and
+            parents/guardians
+          </li>
+          <li>You accept the decisions of organizers and judges as final</li>
+        </ul>
+      </div>
+
+      <p class="last-updated">
+        Last Updated: November 2025<br />
+        CRS Conclave 2.0 - Innovate. Collaborate. Transform.
+      </p>
+    </div>
+  </body>
+</html>
