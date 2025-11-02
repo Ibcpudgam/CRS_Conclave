@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
     <title>Events Schedule - CRS Conclave 2.0</title>
     <style>
       * {
@@ -95,6 +97,21 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.2;
+      }
+
+      .nav-logo-tagline {
+        font-size: 11px;
+        font-weight: normal;
+        font-style: italic;
+        opacity: 0.8;
+        color: #00d4aa;
+        background: none;
+        -webkit-text-fill-color: #00d4aa;
+        margin-top: 2px;
       }
 
       .nav-menu {
@@ -793,7 +810,12 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
       <div class="nav-container">
-        <a href="index.html" class="nav-logo">CRS Conclave 2.0</a>
+        <a href="index.html" class="nav-logo">
+          <span>CRS Conclave 2.0</span>
+          <span class="nav-logo-tagline"
+            >Innovate. Collaborate. Transform.</span
+          >
+        </a>
 
         <ul class="nav-menu" id="nav-menu">
           <li class="nav-item">

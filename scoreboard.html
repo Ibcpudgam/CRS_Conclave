@@ -1,699 +1,782 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
     <title>Scoreboard - CRS Conclave 2.0</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-            background: #0a0015;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 58, 237, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(0, 212, 170, 0.3) 0%, transparent 50%);
-            min-height: 100vh;
-            position: relative;
-            color: white;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        overflow-x: hidden;
+        background: #0a0015;
+        background-image: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 58, 237, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(168, 85, 247, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(0, 212, 170, 0.3) 0%,
+            transparent 50%
+          );
+        min-height: 100vh;
+        position: relative;
+        color: white;
+      }
 
-        /* Animated floating elements */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(0,212,170,0.3)"/><circle cx="60" cy="30" r="1.5" fill="rgba(168,85,247,0.2)"/></svg>');
-            background-size: 200px 200px;
-            animation: float-particles 20s linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
+      /* Animated floating elements */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(0,212,170,0.3)"/><circle cx="60" cy="30" r="1.5" fill="rgba(168,85,247,0.2)"/></svg>');
+        background-size: 200px 200px;
+        animation: float-particles 20s linear infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
 
-        @keyframes float-particles {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-200px) rotate(360deg); }
+      @keyframes float-particles {
+        0% {
+          transform: translateY(0) rotate(0deg);
         }
-
-        /* Navigation Styles */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 0, 21, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        100% {
+          transform: translateY(-200px) rotate(360deg);
         }
+      }
 
-        .navbar.scrolled {
-            background: rgba(10, 0, 21, 0.98);
-            padding: 10px 0;
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+      /* Navigation Styles */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(10, 0, 21, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        padding: 15px 0;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      }
+
+      .navbar.scrolled {
+        background: rgba(10, 0, 21, 0.98);
+        padding: 10px 0;
+        box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+      }
+
+      .nav-logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.2;
+      }
+
+      .nav-logo-tagline {
+        font-size: 11px;
+        font-weight: normal;
+        font-style: italic;
+        opacity: 0.8;
+        color: #00d4aa;
+        background: none;
+        -webkit-text-fill-color: #00d4aa;
+        margin-top: 2px;
+      }
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 5px 0;
+      }
+
+      .nav-link.active {
+        color: #00d4aa;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::before,
+      .nav-link.active::before {
+        width: 100%;
+      }
+
+      .nav-link:hover {
+        color: #00d4aa;
+        transform: translateY(-2px);
+      }
+
+      .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .hamburger-line {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 3px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+
+      /* Coming Soon Container */
+      .coming-soon-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 120px 20px 40px 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .page-title {
+        font-size: 64px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 200% 200%;
+        animation: gradient-shift 3s ease-in-out infinite;
+      }
+
+      @keyframes gradient-shift {
+        0%,
+        100% {
+          background-position: 0% 50%;
         }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
+        50% {
+          background-position: 100% 50%;
         }
+      }
 
-        .nav-logo {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+      .page-subtitle {
+        font-size: 24px;
+        opacity: 0.8;
+        font-style: italic;
+        margin-bottom: 50px;
+      }
+
+      .coming-soon-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 60px 40px;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        max-width: 600px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+      }
+
+      .coming-soon-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          rgba(168, 85, 247, 0.1),
+          transparent
+        );
+        animation: rotate 4s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .coming-soon-card:hover::before {
+        opacity: 1;
+      }
+
+      .coming-soon-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 30px 60px rgba(0, 212, 170, 0.3);
+        border-color: rgba(0, 212, 170, 0.4);
+      }
+
+      .coming-soon-icon {
+        font-size: 80px;
+        margin-bottom: 30px;
+        animation: float 3s ease-in-out infinite;
+        position: relative;
+        z-index: 2;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-10px) rotate(5deg);
+        }
+      }
+
+      .coming-soon-title {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: white;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        position: relative;
+        z-index: 2;
+      }
+
+      .coming-soon-message {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        position: relative;
+        z-index: 2;
+      }
+
+      .event-info {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+
+      .info-item {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        padding: 12px 20px;
+        border-radius: 25px;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 212, 170, 0.1),
+          rgba(168, 85, 247, 0.1)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .info-item:hover::before {
+        opacity: 1;
+      }
+
+      .info-item:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+        border-color: rgba(0, 212, 170, 0.4);
+      }
+
+      .countdown-container {
+        margin-top: 40px;
+      }
+
+      .countdown-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 600;
+        position: relative;
+        z-index: 2;
+      }
+
+      .countdown {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .countdown-item {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        border-radius: 15px;
+        padding: 20px 15px;
+        min-width: 80px;
+        text-align: center;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .countdown-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 212, 170, 0.1),
+          rgba(168, 85, 247, 0.1)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .countdown-item:hover::before {
+        opacity: 1;
+      }
+
+      .countdown-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+        border-color: rgba(0, 212, 170, 0.4);
+      }
+
+      .countdown-number {
+        font-size: 24px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+        position: relative;
+        z-index: 2;
+      }
+
+      .countdown-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.9;
+        margin-top: 5px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Floating decorative elements */
+      .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        animation: float-random 6s ease-in-out infinite;
+      }
+
+      .shape:nth-child(1) {
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 212, 170, 0.3);
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .shape:nth-child(2) {
+        width: 15px;
+        height: 15px;
+        background: rgba(168, 85, 247, 0.4);
+        top: 60%;
+        right: 15%;
+        animation-delay: 2s;
+      }
+
+      .shape:nth-child(3) {
+        width: 25px;
+        height: 25px;
+        background: rgba(255, 255, 255, 0.1);
+        top: 40%;
+        left: 70%;
+        animation-delay: 4s;
+      }
+
+      @keyframes float-random {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px);
+        }
+        33% {
+          transform: translateY(-20px) translateX(10px);
+        }
+        66% {
+          transform: translateY(10px) translateX(-15px);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 968px) {
+        .mobile-menu-toggle {
+          display: flex;
         }
 
         .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-            align-items: center;
+          position: fixed;
+          top: 80px;
+          right: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background: rgba(10, 0, 21, 0.98);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 30px;
+          padding-top: 50px;
+          transition: right 0.3s ease;
         }
 
-        .nav-item {
-            position: relative;
+        .nav-menu.active {
+          right: 0;
         }
 
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .nav-link.active {
-            color: #00d4aa;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::before,
-        .nav-link.active::before {
-            width: 100%;
-        }
-
-        .nav-link:hover {
-            color: #00d4aa;
-            transform: translateY(-2px);
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .hamburger-line {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        /* Coming Soon Container */
-        .coming-soon-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 120px 20px 40px 20px;
-            position: relative;
-            z-index: 2;
+        .nav-container {
+          padding: 0 20px;
         }
 
         .page-title {
-            font-size: 64px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #00d4aa, #a855f7, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% 200%;
-            animation: gradient-shift 3s ease-in-out infinite;
-        }
-
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .page-subtitle {
-            font-size: 24px;
-            opacity: 0.8;
-            font-style: italic;
-            margin-bottom: 50px;
+          font-size: 48px;
         }
 
         .coming-soon-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 60px 40px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            max-width: 600px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .coming-soon-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(168, 85, 247, 0.1), transparent);
-            animation: rotate 4s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .coming-soon-card:hover::before {
-            opacity: 1;
-        }
-
-        .coming-soon-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 30px 60px rgba(0, 212, 170, 0.3);
-            border-color: rgba(0, 212, 170, 0.4);
-        }
-
-        .coming-soon-icon {
-            font-size: 80px;
-            margin-bottom: 30px;
-            animation: float 3s ease-in-out infinite;
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+          padding: 40px 20px;
+          margin: 0 10px;
         }
 
         .coming-soon-title {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-            position: relative;
-            z-index: 2;
+          font-size: 28px;
         }
 
-        .coming-soon-message {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            position: relative;
-            z-index: 2;
+        .coming-soon-icon {
+          font-size: 60px;
         }
 
         .event-info {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .info-item {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .info-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(0, 212, 170, 0.1), rgba(168, 85, 247, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .info-item:hover::before {
-            opacity: 1;
-        }
-
-        .info-item:hover {
-            transform: translateY(-2px) scale(1.05);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
-            border-color: rgba(0, 212, 170, 0.4);
-        }
-
-        .countdown-container {
-            margin-top: 40px;
-        }
-
-        .countdown-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-            position: relative;
-            z-index: 2;
+          flex-direction: column;
+          gap: 10px;
         }
 
         .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+          gap: 10px;
         }
 
         .countdown-item {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 15px;
-            padding: 20px 15px;
-            min-width: 80px;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+          min-width: 60px;
+          padding: 15px 10px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page-title {
+          font-size: 36px;
         }
 
-        .countdown-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(0, 212, 170, 0.1), rgba(168, 85, 247, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .page-subtitle {
+          font-size: 18px;
         }
 
-        .countdown-item:hover::before {
-            opacity: 1;
+        .coming-soon-title {
+          font-size: 24px;
         }
 
-        .countdown-item:hover {
-            transform: translateY(-10px) scale(1.05);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
-            border-color: rgba(0, 212, 170, 0.4);
+        .coming-soon-message {
+          font-size: 16px;
         }
 
-        .countdown-number {
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-            position: relative;
-            z-index: 2;
+        .coming-soon-container {
+          padding: 100px 15px 30px 15px;
         }
-
-        .countdown-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-            margin-top: 5px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Floating decorative elements */
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            animation: float-random 6s ease-in-out infinite;
-        }
-
-        .shape:nth-child(1) {
-            width: 20px;
-            height: 20px;
-            background: rgba(0, 212, 170, 0.3);
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 15px;
-            height: 15px;
-            background: rgba(168, 85, 247, 0.4);
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            width: 25px;
-            height: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            top: 40%;
-            left: 70%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float-random {
-            0%, 100% { transform: translateY(0px) translateX(0px); }
-            33% { transform: translateY(-20px) translateX(10px); }
-            66% { transform: translateY(10px) translateX(-15px); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: rgba(10, 0, 21, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 30px;
-                padding-top: 50px;
-                transition: right 0.3s ease;
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-container {
-                padding: 0 20px;
-            }
-
-            .page-title {
-                font-size: 48px;
-            }
-
-            .coming-soon-card {
-                padding: 40px 20px;
-                margin: 0 10px;
-            }
-
-            .coming-soon-title {
-                font-size: 28px;
-            }
-
-            .coming-soon-icon {
-                font-size: 60px;
-            }
-
-            .event-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .countdown {
-                gap: 10px;
-            }
-
-            .countdown-item {
-                min-width: 60px;
-                padding: 15px 10px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .page-title {
-                font-size: 36px;
-            }
-
-            .page-subtitle {
-                font-size: 18px;
-            }
-
-            .coming-soon-title {
-                font-size: 24px;
-            }
-
-            .coming-soon-message {
-                font-size: 16px;
-            }
-
-            .coming-soon-container {
-                padding: 100px 15px 30px 15px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Floating decorative shapes -->
     <div class="floating-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
     </div>
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">CRS Conclave 2.0</a>
-            
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="events.html" class="nav-link">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a href="register.html" class="nav-link">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a href="scoreboard.html" class="nav-link active">Scoreboard</a>
-                </li>
-            </ul>
-            
-            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-            </div>
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+          <span>CRS Conclave 2.0</span>
+          <span class="nav-logo-tagline"
+            >Innovate. Collaborate. Transform.</span
+          >
+        </a>
+
+        <ul class="nav-menu" id="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="events.html" class="nav-link">Events</a>
+          </li>
+          <li class="nav-item">
+            <a href="register.html" class="nav-link">Register</a>
+          </li>
+          <li class="nav-item">
+            <a href="scoreboard.html" class="nav-link active">Scoreboard</a>
+          </li>
+        </ul>
+
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
         </div>
+      </div>
     </nav>
 
     <!-- Coming Soon Container -->
     <div class="coming-soon-container">
-        <h1 class="page-title">CRS Conclave 2.0</h1>
-        <p class="page-subtitle">Live Competition Scoreboard</p>
-        
-        <div class="coming-soon-card">
-            <div class="coming-soon-icon">⏰</div>
-            <h2 class="coming-soon-title">Coming Soon!</h2>
-            <p class="coming-soon-message">
-                The live scoreboard will be updated once the Conclave starts. 
-                Stay tuned for real-time competition results and team standings!
-            </p>
-            
-            <div class="event-info">
-                <div class="info-item">📅 January 02-03, 2026</div>
-                <div class="info-item">📍 Udgam School, Ahmedabad</div>
-            </div>
+      <h1 class="page-title">CRS Conclave 2.0</h1>
+      <p class="page-subtitle">Live Competition Scoreboard</p>
 
-            <div class="countdown-container">
-                <div class="countdown-title">⏳ Time Until Event Starts</div>
-                <div class="countdown" id="countdown">
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="days">00</span>
-                        <span class="countdown-label">Days</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="hours">00</span>
-                        <span class="countdown-label">Hours</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="minutes">00</span>
-                        <span class="countdown-label">Minutes</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="seconds">00</span>
-                        <span class="countdown-label">Seconds</span>
-                    </div>
-                </div>
-            </div>
+      <div class="coming-soon-card">
+        <div class="coming-soon-icon">⏰</div>
+        <h2 class="coming-soon-title">Coming Soon!</h2>
+        <p class="coming-soon-message">
+          The live scoreboard will be updated once the Conclave starts. Stay
+          tuned for real-time competition results and team standings!
+        </p>
+
+        <div class="event-info">
+          <div class="info-item">📅 January 02-03, 2026</div>
+          <div class="info-item">📍 Udgam School, Ahmedabad</div>
         </div>
+
+        <div class="countdown-container">
+          <div class="countdown-title">⏳ Time Until Event Starts</div>
+          <div class="countdown" id="countdown">
+            <div class="countdown-item">
+              <span class="countdown-number" id="days">00</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="hours">00</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="minutes">00</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="seconds">00</span>
+              <span class="countdown-label">Seconds</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Countdown timer
-        function updateCountdown() {
-            const eventDate = new Date('2026-01-02T09:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = eventDate - now;
+      // Countdown timer
+      function updateCountdown() {
+        const eventDate = new Date("2026-01-02T09:00:00").getTime();
+        const now = new Date().getTime();
+        const distance = eventDate - now;
 
-            if (distance > 0) {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        if (distance > 0) {
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            } else {
-                // Event has started
-                document.querySelector('.countdown-title').textContent = '🎉 Event is Live!';
-                document.getElementById('countdown').innerHTML = '<div style="font-size: 24px; background: linear-gradient(135deg, #00d4aa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">Competition in Progress!</div>';
-            }
+          document.getElementById("days").textContent = days
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("hours").textContent = hours
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("minutes").textContent = minutes
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("seconds").textContent = seconds
+            .toString()
+            .padStart(2, "0");
+        } else {
+          // Event has started
+          document.querySelector(".countdown-title").textContent =
+            "🎉 Event is Live!";
+          document.getElementById("countdown").innerHTML =
+            '<div style="font-size: 24px; background: linear-gradient(135deg, #00d4aa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">Competition in Progress!</div>';
         }
+      }
 
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+      // Update countdown every second
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
 
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        
-        mobileMenuToggle.addEventListener('click', function() {
-            mobileMenuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
+      // Mobile menu toggle
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+
+      mobileMenuToggle.addEventListener("click", function () {
+        mobileMenuToggle.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      // Close mobile menu on nav link click
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenuToggle.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Enhanced interactions
+      document.querySelectorAll(".countdown-item").forEach((item) => {
+        item.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-10px) scale(1.05)";
         });
 
-        // Close mobile menu on nav link click
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
+        item.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+
+      document.querySelectorAll(".info-item").forEach((item) => {
+        item.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-2px) scale(1.05)";
         });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+        item.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
         });
+      });
 
-        // Enhanced interactions
-        document.querySelectorAll('.countdown-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.05)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
+      const card = document.querySelector(".coming-soon-card");
+      card.addEventListener("mouseenter", function () {
+        this.style.transform = "translateY(-10px) scale(1.02)";
+      });
 
-        document.querySelectorAll('.info-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px) scale(1.05)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        const card = document.querySelector('.coming-soon-card');
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
+      card.addEventListener("mouseleave", function () {
+        this.style.transform = "translateY(0) scale(1)";
+      });
     </script>
-</body>
+  </body>
 </html>

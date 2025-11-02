@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+
     <title>About - CRS Conclave 2.0</title>
     <style>
       * {
@@ -95,6 +99,21 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.2;
+      }
+
+      .nav-logo-tagline {
+        font-size: 11px;
+        font-weight: normal;
+        font-style: italic;
+        opacity: 0.8;
+        color: #00d4aa;
+        background: none;
+        -webkit-text-fill-color: #00d4aa;
+        margin-top: 2px;
       }
 
       .nav-menu {
@@ -561,7 +580,12 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
       <div class="nav-container">
-        <a href="index.html" class="nav-logo">CRS Conclave 2.0</a>
+        <a href="index.html" class="nav-logo">
+          <span>CRS Conclave 2.0</span>
+          <span class="nav-logo-tagline"
+            >Innovate. Collaborate. Transform.</span
+          >
+        </a>
 
         <ul class="nav-menu" id="nav-menu">
           <li class="nav-item">
@@ -635,32 +659,144 @@
           </div>
         </div>
 
-        <!-- Statistics Section -->
-        <div class="stats-section">
+        <!-- Purpose Section -->
+        <div class="about-section">
+          <div class="section-grid">
+            <div class="section-image">
+              <div class="feature-card">
+                <img
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&fit=crop&crop=center"
+                  alt="Our Purpose"
+                />
+                <div class="feature-icon">🎯</div>
+                <h3>Our Mission</h3>
+                <p>
+                  Empowering students to become tomorrow's leaders through
+                  innovation, collaboration, and practical learning.
+                </p>
+              </div>
+            </div>
+            <div class="section-content">
+              <h2>Our Purpose</h2>
+              <p>
+                The primary purpose of CRS Conclave 2.0 is to bridge the gap
+                between academic learning and real-world application. We aim to
+                create a platform where students can transform their innovative
+                ideas into tangible projects and solutions.
+              </p>
+              <p>
+                Through hands-on workshops, competitive challenges, and
+                collaborative activities, we inspire students to think
+                critically, work creatively, and develop the entrepreneurial
+                mindset necessary to thrive in tomorrow's digital economy.
+              </p>
+              <p>
+                Our goal is to nurture a community of young innovators who are
+                not just consumers of technology, but creators and leaders who
+                will shape the future of business and technology.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Who Can Participate Section -->
+        <div class="about-section">
+          <div class="section-grid">
+            <div class="section-image">
+              <div class="feature-card">
+                <img
+                  src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=200&h=200&fit=crop&crop=center"
+                  alt="Students"
+                />
+                <div class="feature-icon">🎓</div>
+                <h3>Open to All</h3>
+                <p>
+                  Students from grades 9-12 across all major curricula are
+                  welcome to join this transformative experience.
+                </p>
+              </div>
+            </div>
+            <div class="section-content">
+              <h2>Who Can Participate?</h2>
+              <p>
+                CRS Conclave 2.0 welcomes students from grades 9, 10, 11, and 12
+                across all major educational boards and curricula.
+              </p>
+              <p style="margin-bottom: 15px">
+                <strong style="color: #00d4aa">Eligible Boards:</strong>
+              </p>
+              <ul style="list-style: none; padding-left: 0; line-height: 2">
+                <li style="margin-bottom: 10px">
+                  ✓ <strong>CBSE</strong> (Central Board of Secondary Education)
+                </li>
+                <li style="margin-bottom: 10px">
+                  ✓ <strong>ICSE</strong> (Indian Certificate of Secondary
+                  Education)
+                </li>
+                <li style="margin-bottom: 10px">
+                  ✓ <strong>IBCP</strong> (International Baccalaureate
+                  Career-related Programme)
+                </li>
+                <li style="margin-bottom: 10px">
+                  ✓ <strong>IBDP</strong> (International Baccalaureate Diploma
+                  Programme)
+                </li>
+                <li style="margin-bottom: 10px">
+                  ✓ <strong>AS/A Level</strong> (Cambridge International)
+                </li>
+              </ul>
+              <p style="margin-top: 20px">
+                Whether you're pursuing science, commerce, humanities, or any
+                other stream, CRS Conclave 2.0 offers opportunities for everyone
+                passionate about technology and innovation.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills Development Section -->
+        <div class="about-section" style="margin-bottom: 150px">
           <h2
             style="
-              font-size: 42px;
-              margin-bottom: 30px;
+              text-align: center;
+              font-size: 48px;
+              margin-bottom: 60px;
               background: linear-gradient(135deg, #00d4aa, #ffffff);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
               background-clip: text;
             "
           >
-            Event Impact
+            Skills Development Framework
           </h2>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-number">100+</div>
-              <div class="stat-label">Participants</div>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 40px;
+              max-width: 900px;
+              margin: 0 auto;
+            "
+          >
+            <!-- IB Learner Profile -->
+            <div class="feature-card" style="height: 320px">
+              <div class="feature-icon" style="font-size: 60px">🌟</div>
+              <h3>IB Learner Profile</h3>
+              <p>
+                Develop attributes of inquirers, thinkers, communicators, and
+                risk-takers through real-world challenges
+              </p>
             </div>
-            <div class="stat-card">
-              <div class="stat-number">4+</div>
-              <div class="stat-label">Schools</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">5+</div>
-              <div class="stat-label">Competitions</div>
+
+            <!-- ATL Skills -->
+            <div class="feature-card" style="height: 320px">
+              <div class="feature-icon" style="font-size: 60px">🧠</div>
+              <h3>ATL Skills</h3>
+              <p>
+                Strengthen thinking, communication, social, research, and
+                self-management skills through experiential learning
+              </p>
             </div>
           </div>
         </div>
@@ -797,10 +933,6 @@
         card.addEventListener("mouseleave", function () {
           this.style.transform = "translateY(0) scale(1)";
         });
-      });
-
-      card.addEventListener("mouseleave", function () {
-        this.style.transform = "translateY(0) scale(1)";
       });
     </script>
   </body>

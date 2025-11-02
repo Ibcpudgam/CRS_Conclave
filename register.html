@@ -1,1359 +1,1677 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
     <title>Team Registration - CRS Conclave 2.0</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-            background: #0a0015;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 58, 237, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(0, 212, 170, 0.3) 0%, transparent 50%);
-            min-height: 100vh;
-            position: relative;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        overflow-x: hidden;
+        background: #0a0015;
+        background-image: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 58, 237, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(168, 85, 247, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(0, 212, 170, 0.3) 0%,
+            transparent 50%
+          );
+        min-height: 100vh;
+        position: relative;
+      }
 
-        /* Animated floating elements */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(0,212,170,0.3)"/><circle cx="60" cy="30" r="1.5" fill="rgba(168,85,247,0.2)"/></svg>');
-            background-size: 200px 200px;
-            animation: float-particles 20s linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
+      /* Animated floating elements */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(0,212,170,0.3)"/><circle cx="60" cy="30" r="1.5" fill="rgba(168,85,247,0.2)"/></svg>');
+        background-size: 200px 200px;
+        animation: float-particles 20s linear infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
 
-        @keyframes float-particles {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-200px) rotate(360deg); }
+      @keyframes float-particles {
+        0% {
+          transform: translateY(0) rotate(0deg);
         }
-
-        /* Navigation Styles */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 0, 21, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        100% {
+          transform: translateY(-200px) rotate(360deg);
         }
+      }
 
-        .navbar.scrolled {
-            background: rgba(10, 0, 21, 0.98);
-            padding: 10px 0;
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+      /* Navigation Styles */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(10, 0, 21, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        padding: 15px 0;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      }
+
+      .navbar.scrolled {
+        background: rgba(10, 0, 21, 0.98);
+        padding: 10px 0;
+        box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+      }
+
+      .nav-logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.2;
+      }
+
+      .nav-logo-tagline {
+        font-size: 11px;
+        font-weight: normal;
+        font-style: italic;
+        opacity: 0.8;
+        color: #00d4aa;
+        background: none;
+        -webkit-text-fill-color: #00d4aa;
+        margin-top: 2px;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 5px 0;
+      }
+
+      .nav-link.active {
+        color: #00d4aa;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::before,
+      .nav-link.active::before {
+        width: 100%;
+      }
+
+      .nav-link:hover {
+        color: #00d4aa;
+        transform: translateY(-2px);
+      }
+
+      .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .hamburger-line {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 3px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+
+      /* Registration Page Styles */
+      .register-container {
+        padding-top: 120px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 2;
+      }
+
+      .content-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 40px 0;
+      }
+
+      .page-title {
+        font-size: 64px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 200% 200%;
+        animation: gradient-shift 3s ease-in-out infinite;
+      }
+
+      @keyframes gradient-shift {
+        0%,
+        100% {
+          background-position: 0% 50%;
         }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
+        50% {
+          background-position: 100% 50%;
         }
+      }
 
-        .nav-logo {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+      .page-subtitle {
+        font-size: 24px;
+        opacity: 0.9;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      .page-tagline {
+        font-size: 18px;
+        opacity: 0.8;
+        font-style: italic;
+        color: #00d4aa;
+      }
+
+      /* Registration Form Styles */
+      .registration-form {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        margin-bottom: 50px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .registration-form::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          rgba(168, 85, 247, 0.05),
+          transparent
+        );
+        animation: rotate 8s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .registration-form:hover::before {
+        opacity: 1;
+      }
+
+      .registration-form:hover {
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 30px 60px rgba(0, 212, 170, 0.2);
+        border-color: rgba(0, 212, 170, 0.3);
+      }
+
+      .form-section {
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-label {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .required-star {
+        color: #ff6b6b;
+        font-size: 16px;
+      }
+
+      .form-input,
+      .form-select {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(168, 85, 247, 0.2);
+        border-radius: 16px;
+        padding: 16px 20px;
+        color: white;
+        font-size: 16px;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+        position: relative;
+        z-index: 2;
+      }
+
+      .form-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+      }
+
+      .form-input:focus,
+      .form-select:focus {
+        outline: none;
+        border-color: #00d4aa;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 5px 20px rgba(0, 212, 170, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .form-select {
+        cursor: pointer;
+      }
+
+      .form-select option {
+        background: #0a0015;
+        color: white;
+        padding: 10px;
+      }
+
+      /* Team Member Sections */
+      .team-members-container {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 30px 0;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .team-members-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 212, 170, 0.05),
+          rgba(168, 85, 247, 0.05)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .team-members-container:hover::before {
+        opacity: 1;
+      }
+
+      .team-members-container:hover {
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+        border-color: rgba(0, 212, 170, 0.3);
+      }
+
+      .member-section {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(168, 85, 247, 0.1);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      .member-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 212, 170, 0.05),
+          rgba(168, 85, 247, 0.05)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .member-section:hover::before {
+        opacity: 1;
+      }
+
+      .member-section:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+        border-color: rgba(0, 212, 170, 0.2);
+      }
+
+      .member-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .member-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #00d4aa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .member-number {
+        background: rgba(0, 212, 170, 0.2);
+        border: 2px solid #00d4aa;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #00d4aa;
+      }
+
+      .optional-member {
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .optional-member.filled {
+        opacity: 1;
+      }
+
+      /* Add/Remove Member Buttons */
+      .member-controls {
+        text-align: center;
+        margin: 20px 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .add-member-btn,
+      .remove-member-btn {
+        background: linear-gradient(135deg, #00d4aa 0%, #00a085 100%);
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0 10px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .add-member-btn::before,
+      .remove-member-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .add-member-btn:hover::before,
+      .remove-member-btn:hover::before {
+        left: 100%;
+      }
+
+      .remove-member-btn {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      }
+
+      .add-member-btn:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 212, 170, 0.3);
+      }
+
+      .remove-member-btn:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+      }
+
+      .add-member-btn:disabled {
+        background: rgba(255, 255, 255, 0.3);
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Terms Section */
+      .terms-section {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        border-radius: 16px;
+        padding: 20px;
+        margin: 30px 0;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      .terms-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 212, 170, 0.05),
+          rgba(168, 85, 247, 0.05)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .terms-section:hover::before {
+        opacity: 1;
+      }
+
+      .checkbox-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .custom-checkbox {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(0, 212, 170, 0.5);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+        margin-top: 2px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .custom-checkbox.checked {
+        background: #00d4aa;
+        border-color: #00d4aa;
+        box-shadow: 0 0 15px rgba(0, 212, 170, 0.5);
+      }
+
+      .custom-checkbox::after {
+        content: "✓";
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .custom-checkbox.checked::after {
+        opacity: 1;
+      }
+
+      .checkbox-label {
+        font-size: 15px;
+        color: white;
+        line-height: 1.4;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+      }
+
+      .checkbox-label a {
+        color: #00d4aa;
+        text-decoration: underline;
+      }
+
+      /* Submit Section */
+      .submit-section {
+        text-align: center;
+        margin-top: 40px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #00d4aa 0%, #00a085 100%);
+        color: white;
+        padding: 20px 50px;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(0, 212, 170, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .submit-btn:hover:not(:disabled)::before {
+        left: 100%;
+      }
+
+      .submit-btn:hover:not(:disabled) {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 212, 170, 0.4);
+      }
+
+      .submit-btn:disabled {
+        background: rgba(255, 255, 255, 0.2);
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+        opacity: 0.5;
+      }
+
+      .submit-tagline {
+        margin-top: 16px;
+        font-size: 14px;
+        opacity: 0.8;
+        color: white;
+      }
+
+      /* Team Counter */
+      .team-counter {
+        background: rgba(0, 212, 170, 0.1);
+        border: 2px solid rgba(0, 212, 170, 0.3);
+        border-radius: 16px;
+        padding: 16px;
+        text-align: center;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .counter-text {
+        font-size: 16px;
+        font-weight: 600;
+        color: #00d4aa;
+      }
+
+      /* Firebase Status Indicator */
+      .firebase-status {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        padding: 12px 16px;
+        border-radius: 25px;
+        color: white;
+        font-weight: bold;
+        z-index: 1001;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .status-connected {
+        background: rgba(34, 197, 94, 0.9);
+      }
+
+      .status-disconnected {
+        background: rgba(239, 68, 68, 0.9);
+      }
+
+      .status-connecting {
+        background: rgba(245, 158, 11, 0.9);
+      }
+
+      /* Floating decorative shapes */
+      .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        animation: float-random 6s ease-in-out infinite;
+      }
+
+      .shape:nth-child(1) {
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 212, 170, 0.3);
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .shape:nth-child(2) {
+        width: 15px;
+        height: 15px;
+        background: rgba(168, 85, 247, 0.4);
+        top: 60%;
+        right: 15%;
+        animation-delay: 2s;
+      }
+
+      .shape:nth-child(3) {
+        width: 25px;
+        height: 25px;
+        background: rgba(255, 255, 255, 0.1);
+        top: 40%;
+        left: 70%;
+        animation-delay: 4s;
+      }
+
+      @keyframes float-random {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px);
+        }
+        33% {
+          transform: translateY(-20px) translateX(10px);
+        }
+        66% {
+          transform: translateY(10px) translateX(-15px);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 968px) {
+        .mobile-menu-toggle {
+          display: flex;
         }
 
         .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-            align-items: center;
+          position: fixed;
+          top: 80px;
+          right: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background: rgba(10, 0, 21, 0.98);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 30px;
+          padding-top: 50px;
+          transition: right 0.3s ease;
         }
 
-        .nav-item {
-            position: relative;
+        .nav-menu.active {
+          right: 0;
         }
 
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .nav-link.active {
-            color: #00d4aa;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::before,
-        .nav-link.active::before {
-            width: 100%;
-        }
-
-        .nav-link:hover {
-            color: #00d4aa;
-            transform: translateY(-2px);
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .hamburger-line {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        /* Registration Page Styles */
-        .register-container {
-            padding-top: 120px;
-            min-height: 100vh;
-            position: relative;
-            z-index: 2;
-        }
-
-        .content-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding: 40px 0;
+        .nav-container {
+          padding: 0 20px;
         }
 
         .page-title {
-            font-size: 64px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #00d4aa, #a855f7, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% 200%;
-            animation: gradient-shift 3s ease-in-out infinite;
-        }
-
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .page-subtitle {
-            font-size: 24px;
-            opacity: 0.9;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: white;
-        }
-
-        .page-tagline {
-            font-size: 18px;
-            opacity: 0.8;
-            font-style: italic;
-            color: #00d4aa;
-        }
-
-        /* Registration Form Styles */
-        .registration-form {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 40px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            margin-bottom: 50px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .registration-form::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(168, 85, 247, 0.05), transparent);
-            animation: rotate 8s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .registration-form:hover::before {
-            opacity: 1;
-        }
-
-        .registration-form:hover {
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 60px rgba(0, 212, 170, 0.2);
-            border-color: rgba(0, 212, 170, 0.3);
-        }
-
-        .form-section {
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            z-index: 2;
+          font-size: 48px;
         }
 
         .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+          grid-template-columns: 1fr;
+          gap: 16px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-label {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .required-star {
-            color: #ff6b6b;
-            font-size: 16px;
-        }
-
-        .form-input, .form-select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(168, 85, 247, 0.2);
-            border-radius: 16px;
-            padding: 16px 20px;
-            color: white;
-            font-size: 16px;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            font-weight: 500;
-            position: relative;
-            z-index: 2;
-        }
-
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 400;
-        }
-
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: #00d4aa;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 20px rgba(0, 212, 170, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .form-select {
-            cursor: pointer;
-        }
-
-        .form-select option {
-            background: #0a0015;
-            color: white;
-            padding: 10px;
-        }
-
-        /* Team Member Sections */
+        .registration-form,
         .team-members-container {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+          padding: 24px;
         }
 
-        .team-members-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(0, 212, 170, 0.05), rgba(168, 85, 247, 0.05));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .content-wrapper {
+          padding: 0 16px;
         }
+      }
 
-        .team-members-container:hover::before {
-            opacity: 1;
+      @media (max-width: 640px) {
+        .page-title {
+          font-size: 36px;
         }
-
-        .team-members-container:hover {
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
-            border-color: rgba(0, 212, 170, 0.3);
-        }
-
-        .member-section {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(168, 85, 247, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        .member-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(0, 212, 170, 0.05), rgba(168, 85, 247, 0.05));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .member-section:hover::before {
-            opacity: 1;
-        }
-
-        .member-section:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
-            border-color: rgba(0, 212, 170, 0.2);
-        }
-
-        .member-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .member-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #00d4aa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .member-number {
-            background: rgba(0, 212, 170, 0.2);
-            border: 2px solid #00d4aa;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
-            color: #00d4aa;
-        }
-
-        .optional-member {
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .optional-member.filled {
-            opacity: 1;
-        }
-
-        /* Add/Remove Member Buttons */
-        .member-controls {
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .add-member-btn, .remove-member-btn {
-            background: linear-gradient(135deg, #00d4aa 0%, #00a085 100%);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 0 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .add-member-btn::before, .remove-member-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .add-member-btn:hover::before, .remove-member-btn:hover::before {
-            left: 100%;
-        }
-
-        .remove-member-btn {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-        }
-
-        .add-member-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 212, 170, 0.3);
-        }
-
-        .remove-member-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
-        }
-
-        .add-member-btn:disabled {
-            background: rgba(255, 255, 255, 0.3);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* Terms Section */
-        .terms-section {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 30px 0;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        .terms-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(0, 212, 170, 0.05), rgba(168, 85, 247, 0.05));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .terms-section:hover::before {
-            opacity: 1;
-        }
-
-        .checkbox-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .custom-checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(0, 212, 170, 0.5);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-            margin-top: 2px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .custom-checkbox.checked {
-            background: #00d4aa;
-            border-color: #00d4aa;
-            box-shadow: 0 0 15px rgba(0, 212, 170, 0.5);
-        }
-
-        .custom-checkbox::after {
-            content: '✓';
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .custom-checkbox.checked::after {
-            opacity: 1;
-        }
-
-        .checkbox-label {
-            font-size: 15px;
-            color: white;
-            line-height: 1.4;
-            cursor: pointer;
-            position: relative;
-            z-index: 2;
-        }
-
-        .checkbox-label a {
-            color: #00d4aa;
-            text-decoration: underline;
-        }
-
-        /* Submit Section */
-        .submit-section {
-            text-align: center;
-            margin-top: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #00d4aa 0%, #00a085 100%);
-            color: white;
-            padding: 20px 50px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 212, 170, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .submit-btn:hover:not(:disabled)::before {
-            left: 100%;
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(0, 212, 170, 0.4);
-        }
-
-        .submit-btn:disabled {
-            background: rgba(255, 255, 255, 0.2);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-            opacity: 0.5;
-        }
-
-        .submit-tagline {
-            margin-top: 16px;
-            font-size: 14px;
-            opacity: 0.8;
-            color: white;
-        }
-
-        /* Team Counter */
-        .team-counter {
-            background: rgba(0, 212, 170, 0.1);
-            border: 2px solid rgba(0, 212, 170, 0.3);
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .counter-text {
-            font-size: 16px;
-            font-weight: 600;
-            color: #00d4aa;
-        }
-
-        /* Firebase Status Indicator */
-        .firebase-status {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            padding: 12px 16px;
-            border-radius: 25px;
-            color: white;
-            font-weight: bold;
-            z-index: 1001;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .status-connected {
-            background: rgba(34, 197, 94, 0.9);
-        }
-
-        .status-disconnected {
-            background: rgba(239, 68, 68, 0.9);
-        }
-
-        .status-connecting {
-            background: rgba(245, 158, 11, 0.9);
-        }
-
-        /* Floating decorative shapes */
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            animation: float-random 6s ease-in-out infinite;
-        }
-
-        .shape:nth-child(1) {
-            width: 20px;
-            height: 20px;
-            background: rgba(0, 212, 170, 0.3);
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 15px;
-            height: 15px;
-            background: rgba(168, 85, 247, 0.4);
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            width: 25px;
-            height: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            top: 40%;
-            left: 70%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float-random {
-            0%, 100% { transform: translateY(0px) translateX(0px); }
-            33% { transform: translateY(-20px) translateX(10px); }
-            66% { transform: translateY(10px) translateX(-15px); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: rgba(10, 0, 21, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 30px;
-                padding-top: 50px;
-                transition: right 0.3s ease;
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-container {
-                padding: 0 20px;
-            }
-
-            .page-title {
-                font-size: 48px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .registration-form, .team-members-container {
-                padding: 24px;
-            }
-
-            .content-wrapper {
-                padding: 0 16px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .page-title {
-                font-size: 36px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Floating decorative shapes -->
     <div class="floating-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
     </div>
 
     <!-- Firebase Status Indicator -->
     <div id="firebaseStatus" class="firebase-status status-disconnected">
-        🔴 Checking Firebase...
+      🔴 Checking Firebase...
     </div>
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">CRS Conclave 2.0</a>
-            
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="events.html" class="nav-link">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a href="register.html" class="nav-link active">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a href="scoreboard.html" class="nav-link">Scoreboard</a>
-                </li>
-            </ul>
-            
-            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-            </div>
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+          <span>CRS Conclave 2.0</span>
+          <span class="nav-logo-tagline"
+            >Innovate. Collaborate. Transform.</span
+          >
+        </a>
+
+        <ul class="nav-menu" id="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="events.html" class="nav-link">Events</a>
+          </li>
+          <li class="nav-item">
+            <a href="register.html" class="nav-link active">Register</a>
+          </li>
+          <li class="nav-item">
+            <a href="scoreboard.html" class="nav-link">Scoreboard</a>
+          </li>
+        </ul>
+
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
         </div>
+      </div>
     </nav>
 
     <!-- Registration Page Content -->
     <div class="register-container">
-        <div class="content-wrapper">
-            <!-- Page Header -->
-            <div class="page-header">
-                <h1 class="page-title">Team Registration</h1>
-                <p class="page-subtitle">Assemble your squad for the ultimate challenge</p>
-                <p class="page-tagline">2-4 members. Infinite possibilities. 🚀</p>
+      <div class="content-wrapper">
+        <!-- Page Header -->
+        <div class="page-header">
+          <h1 class="page-title">Team Registration</h1>
+          <p class="page-subtitle">
+            Assemble your squad for the ultimate challenge
+          </p>
+          <p class="page-tagline">2-4 members. Infinite possibilities. 🚀</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form class="registration-form" id="teamRegistrationForm">
+          <!-- Team Details -->
+          <div class="form-section">
+            <h3 class="section-title">🎯 Team Details</h3>
+
+            <div class="form-group">
+              <label class="form-label"
+                >Team Name <span class="required-star">*</span></label
+              >
+              <input
+                type="text"
+                id="team_name"
+                name="team_name"
+                class="form-input"
+                placeholder="Give your team an epic name"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- School Information -->
+          <div class="form-section">
+            <h3 class="section-title">🏫 School Information</h3>
+
+            <div class="form-group">
+              <label class="form-label"
+                >School Name <span class="required-star">*</span></label
+              >
+              <input
+                type="text"
+                id="school_name"
+                name="school_name"
+                class="form-input"
+                placeholder="Your school name"
+                required
+              />
             </div>
 
-            <!-- Registration Form -->
-            <form class="registration-form" id="teamRegistrationForm">
-                <!-- Team Details -->
-                <div class="form-section">
-                    <h3 class="section-title">🎯 Team Details</h3>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Team Name <span class="required-star">*</span></label>
-                        <input type="text" id="team_name" name="team_name" class="form-input" placeholder="Give your team an epic name" required>
-                    </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label"
+                  >Teacher Name <span class="required-star">*</span></label
+                >
+                <input
+                  type="text"
+                  id="teacher_name"
+                  name="teacher_name"
+                  class="form-input"
+                  placeholder="Supervising teacher name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Teacher Contact <span class="required-star">*</span></label
+                >
+                <input
+                  type="tel"
+                  id="teacher_contact"
+                  name="teacher_contact"
+                  class="form-input"
+                  placeholder="+91 98765 43210"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label"
+                >Teacher Email <span class="required-star">*</span></label
+              >
+              <input
+                type="email"
+                id="teacher_email"
+                name="teacher_email"
+                class="form-input"
+                placeholder="teacher@school.edu"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Team Members -->
+          <div class="team-members-container">
+            <h3 class="section-title">👥 Team Members</h3>
+
+            <div class="team-counter">
+              <span class="counter-text">
+                NOTE: <span id="memberCount">2</span> - 4 members</span
+              >
+            </div>
+
+            <div id="teamMembers">
+              <!-- Member 1 (Required) -->
+              <div class="member-section" data-member="1">
+                <div class="member-title">
+                  <div class="member-number">1</div>
+                  Team Member <span class="required-star">*</span>
                 </div>
 
-                <!-- School Information -->
-                <div class="form-section">
-                    <h3 class="section-title">🏫 School Information</h3>
-                    
-                    <div class="form-group">
-                        <label class="form-label">School Name <span class="required-star">*</span></label>
-                        <input type="text" id="school_name" name="school_name" class="form-input" placeholder="Your school name" required>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Teacher Name <span class="required-star">*</span></label>
-                            <input type="text" id="teacher_name" name="teacher_name" class="form-input" placeholder="Supervising teacher name" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Teacher Contact <span class="required-star">*</span></label>
-                            <input type="tel" id="teacher_contact" name="teacher_contact" class="form-input" placeholder="+91 98765 43210" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Teacher Email <span class="required-star">*</span></label>
-                        <input type="email" id="teacher_email" name="teacher_email" class="form-input" placeholder="teacher@school.edu" required>
-                    </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Full Name <span class="required-star">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="member1_name"
+                      name="member1_name"
+                      class="form-input"
+                      placeholder="Member name"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Grade/Class <span class="required-star">*</span></label
+                    >
+                    <select
+                      id="member1_grade"
+                      name="member1_grade"
+                      class="form-select"
+                      required
+                    >
+                      <option value="">Select Grade</option>
+                      <option value="9">Grade 9</option>
+                      <option value="10">Grade 10</option>
+                      <option value="11">Grade 11</option>
+                      <option value="12">Grade 12</option>
+                    </select>
+                  </div>
                 </div>
 
-                <!-- Team Members -->
-                <div class="team-members-container">
-                    <h3 class="section-title">👥 Team Members</h3>
-                    
-                    <div class="team-counter">
-                        <span class="counter-text"> NOTE: <span id="memberCount">2</span> - 4 members</span>
-                    </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Email <span class="required-star">*</span></label
+                    >
+                    <input
+                      type="email"
+                      id="member1_email"
+                      name="member1_email"
+                      class="form-input"
+                      placeholder="member@email.com"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Phone Number <span class="required-star">*</span></label
+                    >
+                    <input
+                      type="tel"
+                      id="member1_phone"
+                      name="member1_phone"
+                      class="form-input"
+                      placeholder="+91 98765 43210"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
 
-                    <div id="teamMembers">
-                        <!-- Member 1 (Required) -->
-                        <div class="member-section" data-member="1">
-                            <div class="member-title">
-                                <div class="member-number">1</div>
-                                Team Member <span class="required-star">*</span>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Full Name <span class="required-star">*</span></label>
-                                    <input type="text" id="member1_name" name="member1_name" class="form-input" placeholder="Member name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Grade/Class <span class="required-star">*</span></label>
-                                    <select id="member1_grade" name="member1_grade" class="form-select" required>
-                                        <option value="">Select Grade</option>
-                                        <option value="9">Grade 9</option>
-                                        <option value="10">Grade 10</option>
-                                        <option value="11">Grade 11</option>
-                                        <option value="12">Grade 12</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Email <span class="required-star">*</span></label>
-                                    <input type="email" id="member1_email" name="member1_email" class="form-input" placeholder="member@email.com" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Phone Number <span class="required-star">*</span></label>
-                                    <input type="tel" id="member1_phone" name="member1_phone" class="form-input" placeholder="+91 98765 43210" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Member 2 (Required) -->
-                        <div class="member-section" data-member="2">
-                            <div class="member-title">
-                                <div class="member-number">2</div>
-                                Team Member <span class="required-star">*</span>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Full Name <span class="required-star">*</span></label>
-                                    <input type="text" id="member2_name" name="member2_name" class="form-input" placeholder="Member name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Grade/Class <span class="required-star">*</span></label>
-                                    <select id="member2_grade" name="member2_grade" class="form-select" required>
-                                        <option value="">Select Grade</option>
-                                        <option value="9">Grade 9</option>
-                                        <option value="10">Grade 10</option>
-                                        <option value="11">Grade 11</option>
-                                        <option value="12">Grade 12</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Email <span class="required-star">*</span></label>
-                                    <input type="email" id="member2_email" name="member2_email" class="form-input" placeholder="member@email.com" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Phone Number <span class="required-star">*</span></label>
-                                    <input type="tel" id="member2_phone" name="member2_phone" class="form-input" placeholder="+91 98765 43210" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Member 3 (Optional) -->
-                        <div class="member-section optional-member" data-member="3">
-                            <div class="member-title">
-                                <div class="member-number">3</div>
-                                Team Member (Optional)
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Full Name</label>
-                                    <input type="text" id="member3_name" name="member3_name" class="form-input" placeholder="Member name">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Grade/Class</label>
-                                    <select id="member3_grade" name="member3_grade" class="form-select">
-                                        <option value="">Select Grade</option>
-                                        <option value="9">Grade 9</option>
-                                        <option value="10">Grade 10</option>
-                                        <option value="11">Grade 11</option>
-                                        <option value="12">Grade 12</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" id="member3_email" name="member3_email" class="form-input" placeholder="member@email.com">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Phone Number</label>
-                                    <input type="tel" id="member3_phone" name="member3_phone" class="form-input" placeholder="+91 98765 43210">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Member 4 (Optional, Hidden by default) -->
-                        <div class="member-section optional-member" data-member="4" style="display: none;">
-                            <div class="member-title">
-                                <div class="member-number">4</div>
-                                Team Member (Optional)
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Full Name</label>
-                                    <input type="text" id="member4_name" name="member4_name" class="form-input" placeholder="Member name">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Grade/Class</label>
-                                    <select id="member4_grade" name="member4_grade" class="form-select">
-                                        <option value="">Select Grade</option>
-                                        <option value="9">Grade 9</option>
-                                        <option value="10">Grade 10</option>
-                                        <option value="11">Grade 11</option>
-                                        <option value="12">Grade 12</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" id="member4_email" name="member4_email" class="form-input" placeholder="member@email.com">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Phone Number</label>
-                                    <input type="tel" id="member4_phone" name="member4_phone" class="form-input" placeholder="+91 98765 43210">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="member-controls">
-                        <button type="button" class="add-member-btn" id="addMemberBtn" onclick="addMember()">+ Add Team Member</button>
-                        <button type="button" class="remove-member-btn" id="removeMemberBtn" onclick="removeMember()" style="display: none;">- Remove Member</button>
-                    </div>
+              <!-- Member 2 (Required) -->
+              <div class="member-section" data-member="2">
+                <div class="member-title">
+                  <div class="member-number">2</div>
+                  Team Member <span class="required-star">*</span>
                 </div>
 
-                <!-- Terms and Conditions - Single Checkbox -->
-                <div class="terms-section">
-                    <div class="checkbox-row">
-                        <div class="custom-checkbox" id="termsCheckbox" onclick="toggleCheckbox()"></div>
-                        <input type="checkbox" id="termsHidden" name="terms_accepted" style="display: none;" required>
-                        <label class="checkbox-label" for="termsCheckbox" onclick="toggleCheckbox()">
-                            I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>. I understand and agree to follow all competition rules and guidelines. <span class="required-star">*</span>
-                        </label>
-                    </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Full Name <span class="required-star">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="member2_name"
+                      name="member2_name"
+                      class="form-input"
+                      placeholder="Member name"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Grade/Class <span class="required-star">*</span></label
+                    >
+                    <select
+                      id="member2_grade"
+                      name="member2_grade"
+                      class="form-select"
+                      required
+                    >
+                      <option value="">Select Grade</option>
+                      <option value="9">Grade 9</option>
+                      <option value="10">Grade 10</option>
+                      <option value="11">Grade 11</option>
+                      <option value="12">Grade 12</option>
+                    </select>
+                  </div>
                 </div>
 
-                <!-- Submit Section -->
-                <div class="submit-section">
-                    <button type="submit" class="submit-btn" id="submitBtn" disabled>Register Team</button>
-                    <p class="submit-tagline">Ready to make history? Let's do this! 🔥</p>
-                    <p class="submit-tagline" id="checkboxWarning" style="color: #ff6b6b; margin-top: 8px;">
-                        ⚠️ Please accept the terms and conditions to enable registration
-                    </p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Email <span class="required-star">*</span></label
+                    >
+                    <input
+                      type="email"
+                      id="member2_email"
+                      name="member2_email"
+                      class="form-input"
+                      placeholder="member@email.com"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Phone Number <span class="required-star">*</span></label
+                    >
+                    <input
+                      type="tel"
+                      id="member2_phone"
+                      name="member2_phone"
+                      class="form-input"
+                      placeholder="+91 98765 43210"
+                      required
+                    />
+                  </div>
                 </div>
-            </form>
-        </div>
+              </div>
+
+              <!-- Member 3 (Optional) -->
+              <div class="member-section optional-member" data-member="3">
+                <div class="member-title">
+                  <div class="member-number">3</div>
+                  Team Member (Optional)
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      id="member3_name"
+                      name="member3_name"
+                      class="form-input"
+                      placeholder="Member name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Grade/Class</label>
+                    <select
+                      id="member3_grade"
+                      name="member3_grade"
+                      class="form-select"
+                    >
+                      <option value="">Select Grade</option>
+                      <option value="9">Grade 9</option>
+                      <option value="10">Grade 10</option>
+                      <option value="11">Grade 11</option>
+                      <option value="12">Grade 12</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input
+                      type="email"
+                      id="member3_email"
+                      name="member3_email"
+                      class="form-input"
+                      placeholder="member@email.com"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input
+                      type="tel"
+                      id="member3_phone"
+                      name="member3_phone"
+                      class="form-input"
+                      placeholder="+91 98765 43210"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Member 4 (Optional, Hidden by default) -->
+              <div
+                class="member-section optional-member"
+                data-member="4"
+                style="display: none"
+              >
+                <div class="member-title">
+                  <div class="member-number">4</div>
+                  Team Member (Optional)
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      id="member4_name"
+                      name="member4_name"
+                      class="form-input"
+                      placeholder="Member name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Grade/Class</label>
+                    <select
+                      id="member4_grade"
+                      name="member4_grade"
+                      class="form-select"
+                    >
+                      <option value="">Select Grade</option>
+                      <option value="9">Grade 9</option>
+                      <option value="10">Grade 10</option>
+                      <option value="11">Grade 11</option>
+                      <option value="12">Grade 12</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input
+                      type="email"
+                      id="member4_email"
+                      name="member4_email"
+                      class="form-input"
+                      placeholder="member@email.com"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input
+                      type="tel"
+                      id="member4_phone"
+                      name="member4_phone"
+                      class="form-input"
+                      placeholder="+91 98765 43210"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="member-controls">
+              <button
+                type="button"
+                class="add-member-btn"
+                id="addMemberBtn"
+                onclick="addMember()"
+              >
+                + Add Team Member
+              </button>
+              <button
+                type="button"
+                class="remove-member-btn"
+                id="removeMemberBtn"
+                onclick="removeMember()"
+                style="display: none"
+              >
+                - Remove Member
+              </button>
+            </div>
+          </div>
+
+          <!-- Terms and Conditions - Single Checkbox -->
+          <div class="terms-section">
+            <div class="checkbox-row">
+              <div
+                class="custom-checkbox"
+                id="termsCheckbox"
+                onclick="toggleCheckbox()"
+              ></div>
+              <input
+                type="checkbox"
+                id="termsHidden"
+                name="terms_accepted"
+                style="display: none"
+                required
+              />
+              <label
+                class="checkbox-label"
+                for="termsCheckbox"
+                onclick="toggleCheckbox()"
+              >
+                I agree to the
+                <a href="#" target="_blank">Terms and Conditions</a> and
+                <a href="#" target="_blank">Privacy Policy</a>. I understand and
+                agree to follow all competition rules and guidelines.
+                <span class="required-star">*</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Section -->
+          <div class="submit-section">
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>
+              Register Team
+            </button>
+            <p class="submit-tagline">
+              Ready to make history? Let's do this! 🔥
+            </p>
+            <p
+              class="submit-tagline"
+              id="checkboxWarning"
+              style="color: #ff6b6b; margin-top: 8px"
+            >
+              ⚠️ Please accept the terms and conditions to enable registration
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- JavaScript -->
     <script type="module">
-        // Import Firebase modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-        import { getDatabase, ref, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
 
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAIlsl_OqjGjRvYTuoGmx04c4LJtJCZIiA",
-            authDomain: "crs-conclave.firebaseapp.com",
-            projectId: "crs-conclave",
-            databaseURL: "https://crs-conclave-default-rtdb.asia-southeast1.firebasedatabase.app",
-            storageBucket: "crs-conclave.firebasestorage.app",
-            messagingSenderId: "678967687267",
-            appId: "1:678967687267:web:9d3824573ef79f79f36056"
-        };
+      // Firebase Configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAIlsl_OqjGjRvYTuoGmx04c4LJtJCZIiA",
+        authDomain: "crs-conclave.firebaseapp.com",
+        projectId: "crs-conclave",
+        databaseURL:
+          "https://crs-conclave-default-rtdb.asia-southeast1.firebasedatabase.app",
+        storageBucket: "crs-conclave.firebasestorage.app",
+        messagingSenderId: "678967687267",
+        appId: "1:678967687267:web:9d3824573ef79f79f36056",
+      };
 
-        // Initialize Firebase
-        let app, database;
-        let isFirebaseConnected = false;
+      // Initialize Firebase
+      let app, database;
+      let isFirebaseConnected = false;
+
+      try {
+        app = initializeApp(firebaseConfig);
+        database = getDatabase(app);
+        console.log("✅ Firebase initialized successfully");
+      } catch (error) {
+        console.error("❌ Firebase initialization failed:", error);
+      }
+
+      // Global variables for member management
+      let currentMemberCount = 2;
+      const maxMembers = 4;
+      const minMembers = 2;
+
+      // Firebase connection test
+      async function testFirebaseConnection() {
+        const indicator = document.getElementById("firebaseStatus");
 
         try {
-            app = initializeApp(firebaseConfig);
-            database = getDatabase(app);
-            console.log('✅ Firebase initialized successfully');
+          indicator.textContent = "🟡 Testing Connection...";
+          indicator.className = "firebase-status status-connecting";
+
+          const testRef = ref(database, "system/connection_test");
+          const testData = {
+            test: true,
+            timestamp: Date.now(),
+            userAgent: navigator.userAgent,
+            page: "registration",
+          };
+
+          await set(testRef, testData);
+
+          // Verify by reading back
+          const snapshot = await get(testRef);
+          if (snapshot.exists()) {
+            isFirebaseConnected = true;
+            indicator.textContent = "🟢 Firebase Connected";
+            indicator.className = "firebase-status status-connected";
+
+            // Clean up test data
+            setTimeout(() => set(testRef, null), 2000);
+
+            console.log("✅ Firebase connection successful");
+            return true;
+          }
         } catch (error) {
-            console.error('❌ Firebase initialization failed:', error);
+          console.error("❌ Firebase connection failed:", error);
+          isFirebaseConnected = false;
+          indicator.textContent = "🔴 Connection Failed";
+          indicator.className = "firebase-status status-disconnected";
+          return false;
         }
+      }
 
-        // Global variables for member management
-        let currentMemberCount = 2;
-        const maxMembers = 4;
-        const minMembers = 2;
+      // Generate unique registration ID
+      function generateRegistrationId() {
+        const timestamp = Date.now();
+        const random = Math.random().toString(36).substr(2, 8).toUpperCase();
+        return `CRS2024_${timestamp}_${random}`;
+      }
 
-        // Firebase connection test
-        async function testFirebaseConnection() {
-            const indicator = document.getElementById('firebaseStatus');
-            
-            try {
-                indicator.textContent = '🟡 Testing Connection...';
-                indicator.className = 'firebase-status status-connecting';
-                
-                const testRef = ref(database, 'system/connection_test');
-                const testData = {
-                    test: true,
-                    timestamp: Date.now(),
-                    userAgent: navigator.userAgent,
-                    page: 'registration'
-                };
-                
-                await set(testRef, testData);
-                
-                // Verify by reading back
-                const snapshot = await get(testRef);
-                if (snapshot.exists()) {
-                    isFirebaseConnected = true;
-                    indicator.textContent = '🟢 Firebase Connected';
-                    indicator.className = 'firebase-status status-connected';
-                    
-                    // Clean up test data
-                    setTimeout(() => set(testRef, null), 2000);
-                    
-                    console.log('✅ Firebase connection successful');
-                    return true;
-                }
-                
-            } catch (error) {
-                console.error('❌ Firebase connection failed:', error);
-                isFirebaseConnected = false;
-                indicator.textContent = '🔴 Connection Failed';
-                indicator.className = 'firebase-status status-disconnected';
-                return false;
-            }
-        }
+      // Get form data
+      function getRegistrationData() {
+        // Team Information
+        const teamName =
+          document.getElementById("team_name")?.value.trim() || "";
 
-        // Generate unique registration ID
-        function generateRegistrationId() {
-            const timestamp = Date.now();
-            const random = Math.random().toString(36).substr(2, 8).toUpperCase();
-            return `CRS2024_${timestamp}_${random}`;
-        }
+        // School Information
+        const schoolName =
+          document.getElementById("school_name")?.value.trim() || "";
+        const teacherName =
+          document.getElementById("teacher_name")?.value.trim() || "";
+        const teacherContact =
+          document.getElementById("teacher_contact")?.value.trim() || "";
+        const teacherEmail =
+          document.getElementById("teacher_email")?.value.trim() || "";
 
-        // Get form data
-        function getRegistrationData() {
-            // Team Information
-            const teamName = document.getElementById('team_name')?.value.trim() || '';
-            
-            // School Information  
-            const schoolName = document.getElementById('school_name')?.value.trim() || '';
-            const teacherName = document.getElementById('teacher_name')?.value.trim() || '';
-            const teacherContact = document.getElementById('teacher_contact')?.value.trim() || '';
-            const teacherEmail = document.getElementById('teacher_email')?.value.trim() || '';
-            
-            // Terms acceptance
-            const termsAccepted = document.getElementById('termsHidden')?.checked || false;
-            
-            // Get members data
-            const members = [];
-            for (let i = 1; i <= 4; i++) {
-                const nameEl = document.getElementById(`member${i}_name`);
-                const gradeEl = document.getElementById(`member${i}_grade`);
-                const emailEl = document.getElementById(`member${i}_email`);
-                const phoneEl = document.getElementById(`member${i}_phone`);
-                
-                const name = nameEl?.value.trim() || '';
-                const grade = gradeEl?.value || '';
-                const email = emailEl?.value.trim() || '';
-                const phone = phoneEl?.value.trim() || '';
-                
-                // Only include members with at least a name
-                if (name) {
-                    members.push({
-                        memberId: i,
-                        name: name,
-                        grade: grade,
-                        email: email,
-                        phone: phone,
-                        isRequired: i <= 2
-                    });
-                }
-            }
-            
-            return {
-                teamInfo: {
-                    teamName: teamName,
-                    memberCount: members.length
-                },
-                schoolInfo: {
-                    schoolName: schoolName,
-                    teacherName: teacherName,
-                    teacherContact: teacherContact,
-                    teacherEmail: teacherEmail
-                },
-                members: members,
-                termsAccepted: termsAccepted
-            };
-        }
+        // Terms acceptance
+        const termsAccepted =
+          document.getElementById("termsHidden")?.checked || false;
 
-        // Validate registration data
-        function validateRegistrationData(data) {
-            const errors = [];
-            
-            // Validate terms
-            if (!data.termsAccepted) {
-                errors.push('You must accept the terms and conditions');
-            }
-            
-            // Validate team info
-            if (!data.teamInfo.teamName) {
-                errors.push('Team name is required');
-            }
-            
-            // Validate school info
-            if (!data.schoolInfo.schoolName) {
-                errors.push('School name is required');
-            }
-            if (!data.schoolInfo.teacherName) {
-                errors.push('Teacher name is required');
-            }
-            if (!data.schoolInfo.teacherContact) {
-                errors.push('Teacher contact is required');
-            }
-            if (!data.schoolInfo.teacherEmail) {
-                errors.push('Teacher email is required');
-            }
-            
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (data.schoolInfo.teacherEmail && !emailRegex.test(data.schoolInfo.teacherEmail)) {
-                errors.push('Teacher email format is invalid');
-            }
-            
-            // Validate phone format
-            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
-            if (data.schoolInfo.teacherContact && !phoneRegex.test(data.schoolInfo.teacherContact)) {
-                errors.push('Teacher contact format is invalid');
-            }
-            
-            // Validate members
-            if (data.members.length < 2) {
-                errors.push('At least 2 team members are required');
-            }
-            
-            // Validate member data
-            data.members.forEach((member, index) => {
-                if (!member.name) {
-                    errors.push(`Member ${index + 1} name is required`);
-                }
-                if (!member.grade) {
-                    errors.push(`Member ${index + 1} grade is required`);
-                }
-                if (!member.email) {
-                    errors.push(`Member ${index + 1} email is required`);
-                }
-                if (!member.phone) {
-                    errors.push(`Member ${index + 1} phone is required`);
-                }
-                
-                // Validate email format
-                if (member.email && !emailRegex.test(member.email)) {
-                    errors.push(`Member ${index + 1} email format is invalid`);
-                }
-                
-                // Validate phone format
-                if (member.phone && !phoneRegex.test(member.phone)) {
-                    errors.push(`Member ${index + 1} phone format is invalid`);
-                }
+        // Get members data
+        const members = [];
+        for (let i = 1; i <= 4; i++) {
+          const nameEl = document.getElementById(`member${i}_name`);
+          const gradeEl = document.getElementById(`member${i}_grade`);
+          const emailEl = document.getElementById(`member${i}_email`);
+          const phoneEl = document.getElementById(`member${i}_phone`);
+
+          const name = nameEl?.value.trim() || "";
+          const grade = gradeEl?.value || "";
+          const email = emailEl?.value.trim() || "";
+          const phone = phoneEl?.value.trim() || "";
+
+          // Only include members with at least a name
+          if (name) {
+            members.push({
+              memberId: i,
+              name: name,
+              grade: grade,
+              email: email,
+              phone: phone,
+              isRequired: i <= 2,
             });
-            
-            // Check for duplicate emails
-            const allEmails = [data.schoolInfo.teacherEmail, ...data.members.map(m => m.email)];
-            const emailSet = new Set(allEmails.map(email => email.toLowerCase()));
-            if (emailSet.size !== allEmails.length) {
-                errors.push('All email addresses must be unique');
-            }
-            
-            return {
-                isValid: errors.length === 0,
-                errors: errors
-            };
+          }
         }
 
-        // Save registration to Firebase
-        async function saveRegistrationToFirebase(data) {
-            const registrationId = generateRegistrationId();
-            
-            const registrationData = {
-                id: registrationId,
-                timestamp: new Date().toISOString(),
-                registrationDate: new Date().toLocaleDateString('en-IN'),
-                registrationTime: new Date().toLocaleTimeString('en-IN'),
-                
-                teamInfo: data.teamInfo,
-                schoolInfo: data.schoolInfo,
-                members: data.members,
-                termsAccepted: data.termsAccepted,
-                
-                status: 'registered',
-                source: 'web_registration_v2',
-                metadata: {
-                    userAgent: navigator.userAgent,
-                    referrer: document.referrer,
-                    timestamp: serverTimestamp()
-                }
-            };
-            
-            // Save main registration
-            const registrationRef = ref(database, `registrations/${registrationId}`);
-            await set(registrationRef, registrationData);
-            
-            // Save summary for quick queries
-            const summaryRef = ref(database, `registration_summary/${registrationId}`);
-            await set(summaryRef, {
-                id: registrationId,
-                teamName: data.teamInfo.teamName,
-                schoolName: data.schoolInfo.schoolName,
-                teacherName: data.schoolInfo.teacherName,
-                teacherEmail: data.schoolInfo.teacherEmail,
-                memberCount: data.members.length,
-                registrationDate: registrationData.registrationDate,
-                status: 'registered'
-            });
-            
-            return { id: registrationId, data: registrationData };
+        return {
+          teamInfo: {
+            teamName: teamName,
+            memberCount: members.length,
+          },
+          schoolInfo: {
+            schoolName: schoolName,
+            teacherName: teacherName,
+            teacherContact: teacherContact,
+            teacherEmail: teacherEmail,
+          },
+          members: members,
+          termsAccepted: termsAccepted,
+        };
+      }
+
+      // Validate registration data
+      function validateRegistrationData(data) {
+        const errors = [];
+
+        // Validate terms
+        if (!data.termsAccepted) {
+          errors.push("You must accept the terms and conditions");
         }
 
-        // Show success message
-        function showSuccessMessage(registrationId, data) {
-            const message = `🎉 REGISTRATION SUCCESSFUL! 🎉
+        // Validate team info
+        if (!data.teamInfo.teamName) {
+          errors.push("Team name is required");
+        }
+
+        // Validate school info
+        if (!data.schoolInfo.schoolName) {
+          errors.push("School name is required");
+        }
+        if (!data.schoolInfo.teacherName) {
+          errors.push("Teacher name is required");
+        }
+        if (!data.schoolInfo.teacherContact) {
+          errors.push("Teacher contact is required");
+        }
+        if (!data.schoolInfo.teacherEmail) {
+          errors.push("Teacher email is required");
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (
+          data.schoolInfo.teacherEmail &&
+          !emailRegex.test(data.schoolInfo.teacherEmail)
+        ) {
+          errors.push("Teacher email format is invalid");
+        }
+
+        // Validate phone format
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+        if (
+          data.schoolInfo.teacherContact &&
+          !phoneRegex.test(data.schoolInfo.teacherContact)
+        ) {
+          errors.push("Teacher contact format is invalid");
+        }
+
+        // Validate members
+        if (data.members.length < 2) {
+          errors.push("At least 2 team members are required");
+        }
+
+        // Validate member data
+        data.members.forEach((member, index) => {
+          if (!member.name) {
+            errors.push(`Member ${index + 1} name is required`);
+          }
+          if (!member.grade) {
+            errors.push(`Member ${index + 1} grade is required`);
+          }
+          if (!member.email) {
+            errors.push(`Member ${index + 1} email is required`);
+          }
+          if (!member.phone) {
+            errors.push(`Member ${index + 1} phone is required`);
+          }
+
+          // Validate email format
+          if (member.email && !emailRegex.test(member.email)) {
+            errors.push(`Member ${index + 1} email format is invalid`);
+          }
+
+          // Validate phone format
+          if (member.phone && !phoneRegex.test(member.phone)) {
+            errors.push(`Member ${index + 1} phone format is invalid`);
+          }
+        });
+
+        // Check for duplicate emails
+        const allEmails = [
+          data.schoolInfo.teacherEmail,
+          ...data.members.map((m) => m.email),
+        ];
+        const emailSet = new Set(allEmails.map((email) => email.toLowerCase()));
+        if (emailSet.size !== allEmails.length) {
+          errors.push("All email addresses must be unique");
+        }
+
+        return {
+          isValid: errors.length === 0,
+          errors: errors,
+        };
+      }
+
+      // Save registration to Firebase
+      async function saveRegistrationToFirebase(data) {
+        const registrationId = generateRegistrationId();
+
+        const registrationData = {
+          id: registrationId,
+          timestamp: new Date().toISOString(),
+          registrationDate: new Date().toLocaleDateString("en-IN"),
+          registrationTime: new Date().toLocaleTimeString("en-IN"),
+
+          teamInfo: data.teamInfo,
+          schoolInfo: data.schoolInfo,
+          members: data.members,
+          termsAccepted: data.termsAccepted,
+
+          status: "registered",
+          source: "web_registration_v2",
+          metadata: {
+            userAgent: navigator.userAgent,
+            referrer: document.referrer,
+            timestamp: serverTimestamp(),
+          },
+        };
+
+        // Save main registration
+        const registrationRef = ref(
+          database,
+          `registrations/${registrationId}`
+        );
+        await set(registrationRef, registrationData);
+
+        // Save summary for quick queries
+        const summaryRef = ref(
+          database,
+          `registration_summary/${registrationId}`
+        );
+        await set(summaryRef, {
+          id: registrationId,
+          teamName: data.teamInfo.teamName,
+          schoolName: data.schoolInfo.schoolName,
+          teacherName: data.schoolInfo.teacherName,
+          teacherEmail: data.schoolInfo.teacherEmail,
+          memberCount: data.members.length,
+          registrationDate: registrationData.registrationDate,
+          status: "registered",
+        });
+
+        return { id: registrationId, data: registrationData };
+      }
+
+      // Show success message
+      function showSuccessMessage(registrationId, data) {
+        const message = `🎉 REGISTRATION SUCCESSFUL! 🎉
 
 Registration ID: ${registrationId}
 Team: ${data.teamInfo.teamName}
@@ -1366,308 +1684,332 @@ Members: ${data.members.length}
 💾 Please save your Registration ID: ${registrationId}
 
 Welcome to CRS Conclave 2.0! 🚀`;
-            
-            alert(message);
-            console.log('🎉 Registration successful:', { id: registrationId, team: data.teamInfo.teamName });
-        }
 
-        // Show error message
-        function showErrorMessage(errors) {
-            const errorMessage = `❌ REGISTRATION FAILED
+        alert(message);
+        console.log("🎉 Registration successful:", {
+          id: registrationId,
+          team: data.teamInfo.teamName,
+        });
+      }
+
+      // Show error message
+      function showErrorMessage(errors) {
+        const errorMessage = `❌ REGISTRATION FAILED
 
 Please fix the following issues:
 
-${errors.map(error => `• ${error}`).join('\n')}
+${errors.map((error) => `• ${error}`).join("\n")}
 
 Please correct these issues and try again.`;
-            
-            alert(errorMessage);
+
+        alert(errorMessage);
+      }
+
+      // Member management functions
+      function updateMemberCount() {
+        document.getElementById("memberCount").textContent = currentMemberCount;
+
+        const addBtn = document.getElementById("addMemberBtn");
+        const removeBtn = document.getElementById("removeMemberBtn");
+
+        if (currentMemberCount >= maxMembers) {
+          addBtn.style.display = "none";
+        } else {
+          addBtn.style.display = "inline-block";
         }
 
-        // Member management functions
-        function updateMemberCount() {
-            document.getElementById('memberCount').textContent = currentMemberCount;
-            
-            const addBtn = document.getElementById('addMemberBtn');
-            const removeBtn = document.getElementById('removeMemberBtn');
-            
-            if (currentMemberCount >= maxMembers) {
-                addBtn.style.display = 'none';
-            } else {
-                addBtn.style.display = 'inline-block';
-            }
-            
-            if (currentMemberCount > minMembers) {
-                removeBtn.style.display = 'inline-block';
-            } else {
-                removeBtn.style.display = 'none';
-            }
+        if (currentMemberCount > minMembers) {
+          removeBtn.style.display = "inline-block";
+        } else {
+          removeBtn.style.display = "none";
         }
+      }
 
-        function addMember() {
-            if (currentMemberCount < maxMembers) {
-                currentMemberCount++;
-                const memberSection = document.querySelector(`[data-member="${currentMemberCount}"]`);
-                if (memberSection) {
-                    memberSection.style.display = 'block';
-                    memberSection.classList.add('filled');
-                }
-                updateMemberCount();
-            }
+      function addMember() {
+        if (currentMemberCount < maxMembers) {
+          currentMemberCount++;
+          const memberSection = document.querySelector(
+            `[data-member="${currentMemberCount}"]`
+          );
+          if (memberSection) {
+            memberSection.style.display = "block";
+            memberSection.classList.add("filled");
+          }
+          updateMemberCount();
         }
+      }
 
-        function removeMember() {
-            if (currentMemberCount > minMembers) {
-                const memberSection = document.querySelector(`[data-member="${currentMemberCount}"]`);
-                if (memberSection) {
-                    memberSection.style.display = 'none';
-                    memberSection.classList.remove('filled');
-                    
-                    // Clear form inputs for this member
-                    const inputs = memberSection.querySelectorAll('input, select');
-                    inputs.forEach(input => input.value = '');
-                }
-                currentMemberCount--;
-                updateMemberCount();
-            }
+      function removeMember() {
+        if (currentMemberCount > minMembers) {
+          const memberSection = document.querySelector(
+            `[data-member="${currentMemberCount}"]`
+          );
+          if (memberSection) {
+            memberSection.style.display = "none";
+            memberSection.classList.remove("filled");
+
+            // Clear form inputs for this member
+            const inputs = memberSection.querySelectorAll("input, select");
+            inputs.forEach((input) => (input.value = ""));
+          }
+          currentMemberCount--;
+          updateMemberCount();
         }
+      }
 
-        // Checkbox toggle function with button state management
-        function toggleCheckbox() {
-            const checkbox = document.getElementById('termsCheckbox');
-            const hiddenInput = document.getElementById('termsHidden');
-            const submitBtn = document.getElementById('submitBtn');
-            const warningText = document.getElementById('checkboxWarning');
-            
-            checkbox.classList.toggle('checked');
-            hiddenInput.checked = checkbox.classList.contains('checked');
-            
-            // Update button state based on checkbox
-            if (hiddenInput.checked) {
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-                warningText.style.display = 'none';
-                console.log('✅ Terms accepted - Register button enabled');
-            } else {
-                submitBtn.disabled = true;
-                submitBtn.style.opacity = '0.5';
-                warningText.style.display = 'block';
-                console.log('❌ Terms not accepted - Register button disabled');
-            }
+      // Checkbox toggle function with button state management
+      function toggleCheckbox() {
+        const checkbox = document.getElementById("termsCheckbox");
+        const hiddenInput = document.getElementById("termsHidden");
+        const submitBtn = document.getElementById("submitBtn");
+        const warningText = document.getElementById("checkboxWarning");
+
+        checkbox.classList.toggle("checked");
+        hiddenInput.checked = checkbox.classList.contains("checked");
+
+        // Update button state based on checkbox
+        if (hiddenInput.checked) {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = "1";
+          warningText.style.display = "none";
+          console.log("✅ Terms accepted - Register button enabled");
+        } else {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = "0.5";
+          warningText.style.display = "block";
+          console.log("❌ Terms not accepted - Register button disabled");
         }
+      }
 
-        // Function to check button state on page load
-        function initializeButtonState() {
-            const submitBtn = document.getElementById('submitBtn');
-            const warningText = document.getElementById('checkboxWarning');
-            const termsCheckbox = document.getElementById('termsHidden');
-            
-            // Initially disable button
+      // Function to check button state on page load
+      function initializeButtonState() {
+        const submitBtn = document.getElementById("submitBtn");
+        const warningText = document.getElementById("checkboxWarning");
+        const termsCheckbox = document.getElementById("termsHidden");
+
+        // Initially disable button
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.5";
+        warningText.style.display = "block";
+
+        // Ensure checkbox is unchecked
+        termsCheckbox.checked = false;
+        document.getElementById("termsCheckbox").classList.remove("checked");
+
+        console.log("🔒 Register button initialized as disabled");
+      }
+
+      // Make functions globally available
+      window.addMember = addMember;
+      window.removeMember = removeMember;
+      window.toggleCheckbox = toggleCheckbox;
+
+      // Form submission handler with additional checkbox validation
+      document
+        .getElementById("teamRegistrationForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Double-check terms acceptance before proceeding
+          const termsAccepted = document.getElementById("termsHidden").checked;
+          if (!termsAccepted) {
+            alert(
+              "❌ You must accept the Terms and Conditions before registering.\n\nPlease check the checkbox and try again."
+            );
+            return;
+          }
+
+          console.log("📝 Form submission started...");
+
+          // Check Firebase connection
+          if (!isFirebaseConnected) {
+            alert(
+              "❌ Not connected to Firebase database.\n\nPlease check your internet connection and try again.\n\nClick the connection status indicator to retry."
+            );
+            return;
+          }
+
+          const submitBtn = document.getElementById("submitBtn");
+          const originalText = submitBtn.textContent;
+
+          try {
+            // Show loading state
             submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.5';
-            warningText.style.display = 'block';
-            
-            // Ensure checkbox is unchecked
-            termsCheckbox.checked = false;
-            document.getElementById('termsCheckbox').classList.remove('checked');
-            
-            console.log('🔒 Register button initialized as disabled');
-        }
+            submitBtn.textContent = "Registering Team...";
+            submitBtn.style.background = "rgba(156, 163, 175, 0.8)";
 
-        // Make functions globally available
-        window.addMember = addMember;
-        window.removeMember = removeMember;
-        window.toggleCheckbox = toggleCheckbox;
+            // Get form data
+            const formData = getRegistrationData();
+            console.log("📊 Form data collected:", formData);
 
-        // Form submission handler with additional checkbox validation
-        document.getElementById('teamRegistrationForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Double-check terms acceptance before proceeding
-            const termsAccepted = document.getElementById('termsHidden').checked;
-            if (!termsAccepted) {
-                alert('❌ You must accept the Terms and Conditions before registering.\n\nPlease check the checkbox and try again.');
-                return;
+            // Validate data
+            const validation = validateRegistrationData(formData);
+            if (!validation.isValid) {
+              showErrorMessage(validation.errors);
+              return;
             }
-            
-            console.log('📝 Form submission started...');
-            
-            // Check Firebase connection
-            if (!isFirebaseConnected) {
-                alert('❌ Not connected to Firebase database.\n\nPlease check your internet connection and try again.\n\nClick the connection status indicator to retry.');
-                return;
-            }
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.textContent;
-            
-            try {
-                // Show loading state
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Registering Team...';
-                submitBtn.style.background = 'rgba(156, 163, 175, 0.8)';
-                
-                // Get form data
-                const formData = getRegistrationData();
-                console.log('📊 Form data collected:', formData);
-                
-                // Validate data
-                const validation = validateRegistrationData(formData);
-                if (!validation.isValid) {
-                    showErrorMessage(validation.errors);
-                    return;
-                }
-                
-                console.log('✅ Validation passed');
-                
-                // Save to Firebase
-                const result = await saveRegistrationToFirebase(formData);
-                console.log('💾 Data saved to Firebase');
-                
-                // Show success message
-                showSuccessMessage(result.id, result.data);
-                
-                // Reset form
-                this.reset();
-                
-                // Reset dynamic elements
-                currentMemberCount = 2;
-                document.querySelector('[data-member="3"]').style.display = 'none';
-                document.querySelector('[data-member="4"]').style.display = 'none';
-                updateMemberCount();
-                
-                // Reset checkbox and button state
-                document.getElementById('termsCheckbox').classList.remove('checked');
-                initializeButtonState();
-                
-            } catch (error) {
-                console.error('❌ Registration failed:', error);
-                alert(`❌ Registration failed:\n\n${error.message}\n\nPlease try again or contact support if the problem persists.`);
-            } finally {
-                // Restore button state based on checkbox
-                const termsStillChecked = document.getElementById('termsHidden').checked;
-                submitBtn.disabled = !termsStillChecked;
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = '';
-                
-                if (!termsStillChecked) {
-                    submitBtn.style.opacity = '0.5';
-                    document.getElementById('checkboxWarning').style.display = 'block';
-                }
-            }
-        });
 
-        // Monitor optional member fields
-        document.addEventListener('input', function(e) {
-            if (e.target.matches('input[name^="member"], select[name^="member"]')) {
-                const memberNum = e.target.name.match(/member(\d+)/)[1];
-                const memberSection = document.querySelector(`[data-member="${memberNum}"]`);
-                
-                if (memberSection && parseInt(memberNum) > 2) {
-                    const inputs = memberSection.querySelectorAll('input, select');
-                    const hasAnyValue = Array.from(inputs).some(input => input.value.trim());
-                    
-                    if (hasAnyValue) {
-                        memberSection.classList.add('filled');
-                    } else {
-                        memberSection.classList.remove('filled');
-                    }
-                }
-            }
-        });
+            console.log("✅ Validation passed");
 
-        // Enhanced interactions for cards
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects for all cards
-            document.querySelectorAll('.member-section').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    if (!this.style.transform.includes('translateY')) {
-                        this.style.transform = 'translateY(-2px)';
-                    }
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
+            // Save to Firebase
+            const result = await saveRegistrationToFirebase(formData);
+            console.log("💾 Data saved to Firebase");
 
-            document.querySelectorAll('.form-input, .form-select').forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.style.transform = 'translateY(-2px)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-        });
+            // Show success message
+            showSuccessMessage(result.id, result.data);
 
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        
-        if (mobileMenuToggle && navMenu) {
-            mobileMenuToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
+            // Reset form
+            this.reset();
 
-            // Close mobile menu when clicking on a nav link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenuToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-        }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (navbar) {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            }
-        });
-
-        // Initialize when page loads
-        window.addEventListener('load', () => {
-            console.log('🔥 CRS Conclave 2.0 Registration System Loading...');
-            
-            // Initialize member count
+            // Reset dynamic elements
+            currentMemberCount = 2;
+            document.querySelector('[data-member="3"]').style.display = "none";
+            document.querySelector('[data-member="4"]').style.display = "none";
             updateMemberCount();
-            
-            // Initialize button state (disabled by default)
+
+            // Reset checkbox and button state
+            document
+              .getElementById("termsCheckbox")
+              .classList.remove("checked");
             initializeButtonState();
-            
-            // Test Firebase connection
-            setTimeout(testFirebaseConnection, 1000);
-            
-            // Make Firebase status clickable for retry
-            const firebaseStatus = document.getElementById('firebaseStatus');
-            if (firebaseStatus) {
-                firebaseStatus.addEventListener('click', testFirebaseConnection);
+          } catch (error) {
+            console.error("❌ Registration failed:", error);
+            alert(
+              `❌ Registration failed:\n\n${error.message}\n\nPlease try again or contact support if the problem persists.`
+            );
+          } finally {
+            // Restore button state based on checkbox
+            const termsStillChecked =
+              document.getElementById("termsHidden").checked;
+            submitBtn.disabled = !termsStillChecked;
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = "";
+
+            if (!termsStillChecked) {
+              submitBtn.style.opacity = "0.5";
+              document.getElementById("checkboxWarning").style.display =
+                "block";
             }
-            
-            console.log('✅ Registration System Ready');
+          }
         });
 
-        // Debug functions
-        window.firebaseDebug = {
-            testConnection: testFirebaseConnection,
-            getFormData: getRegistrationData,
-            validateData: () => {
-                const data = getRegistrationData();
-                return validateRegistrationData(data);
-            },
-            checkConnection: () => isFirebaseConnected,
-            generateId: generateRegistrationId
-        };
+      // Monitor optional member fields
+      document.addEventListener("input", function (e) {
+        if (e.target.matches('input[name^="member"], select[name^="member"]')) {
+          const memberNum = e.target.name.match(/member(\d+)/)[1];
+          const memberSection = document.querySelector(
+            `[data-member="${memberNum}"]`
+          );
 
-        console.log('🔥 CRS Conclave 2.0 Firebase Integration Loaded');
+          if (memberSection && parseInt(memberNum) > 2) {
+            const inputs = memberSection.querySelectorAll("input, select");
+            const hasAnyValue = Array.from(inputs).some((input) =>
+              input.value.trim()
+            );
+
+            if (hasAnyValue) {
+              memberSection.classList.add("filled");
+            } else {
+              memberSection.classList.remove("filled");
+            }
+          }
+        }
+      });
+
+      // Enhanced interactions for cards
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add hover effects for all cards
+        document.querySelectorAll(".member-section").forEach((card) => {
+          card.addEventListener("mouseenter", function () {
+            if (!this.style.transform.includes("translateY")) {
+              this.style.transform = "translateY(-2px)";
+            }
+          });
+
+          card.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0)";
+          });
+        });
+
+        document
+          .querySelectorAll(".form-input, .form-select")
+          .forEach((input) => {
+            input.addEventListener("focus", function () {
+              this.style.transform = "translateY(-2px)";
+            });
+
+            input.addEventListener("blur", function () {
+              this.style.transform = "translateY(0)";
+            });
+          });
+      });
+
+      // Mobile menu toggle
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+
+      if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener("click", function () {
+          this.classList.toggle("active");
+          navMenu.classList.toggle("active");
+        });
+
+        // Close mobile menu when clicking on a nav link
+        document.querySelectorAll(".nav-link").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenuToggle.classList.remove("active");
+            navMenu.classList.remove("active");
+          });
+        });
+      }
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (navbar) {
+          if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+          } else {
+            navbar.classList.remove("scrolled");
+          }
+        }
+      });
+
+      // Initialize when page loads
+      window.addEventListener("load", () => {
+        console.log("🔥 CRS Conclave 2.0 Registration System Loading...");
+
+        // Initialize member count
+        updateMemberCount();
+
+        // Initialize button state (disabled by default)
+        initializeButtonState();
+
+        // Test Firebase connection
+        setTimeout(testFirebaseConnection, 1000);
+
+        // Make Firebase status clickable for retry
+        const firebaseStatus = document.getElementById("firebaseStatus");
+        if (firebaseStatus) {
+          firebaseStatus.addEventListener("click", testFirebaseConnection);
+        }
+
+        console.log("✅ Registration System Ready");
+      });
+
+      // Debug functions
+      window.firebaseDebug = {
+        testConnection: testFirebaseConnection,
+        getFormData: getRegistrationData,
+        validateData: () => {
+          const data = getRegistrationData();
+          return validateRegistrationData(data);
+        },
+        checkConnection: () => isFirebaseConnected,
+        generateId: generateRegistrationId,
+      };
+
+      console.log("🔥 CRS Conclave 2.0 Firebase Integration Loaded");
     </script>
-</body>
+  </body>
 </html>
