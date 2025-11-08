@@ -1,12 +1,11 @@
-// CRS Conclave 2.0 - Firebase Registration Integration
-// This file integrates with your existing HTML form structure
+// CRS Conclave 2.0 - Firebase Event Registration Integration
+// This file integrates with register.html for multiple event registration
 
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { getDatabase, ref, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
 
 // 🔥 FIREBASE CONFIGURATION
-// Replace with your actual Firebase config
 const firebaseConfig = {
     apiKey: "AIzaSyAIlsl_OqjGjRvYTuoGmx04c4LJtJCZIiA",
     authDomain: "crs-conclave.firebaseapp.com",
@@ -70,7 +69,7 @@ async function testFirebaseConnection() {
             test: true,
             timestamp: Date.now(),
             userAgent: navigator.userAgent,
-            page: 'registration'
+            page: 'event_registration'
         };
         
         await set(testRef, testData);
@@ -102,15 +101,12 @@ async function testFirebaseConnection() {
 function generateRegistrationId() {
     const timestamp = Date.now();
     const random = Math.random().toString(36).substr(2, 8).toUpperCase();
-    return `CRS2024_${timestamp}_${random}`;
+    return `CRS2024_EVENT_${timestamp}_${random}`;
 }
 
-// Get form data from your existing form structure
+// Get registration data from form
 function getRegistrationData() {
-    // Team Information
-    const teamName = document.getElementById('team_name')?.value.trim() || '';
-    
-    // School Information  
+    // School Information
     const schoolName = document.getElementById('school_name')?.value.trim() || '';
     const teacherName = document.getElementById('teacher_name')?.value.trim() || '';
     const teacherContact = document.getElementById('teacher_contact')?.value.trim() || '';
@@ -118,61 +114,147 @@ function getRegistrationData() {
     
     // Terms acceptance
     const termsAccepted = document.getElementById('termsHidden')?.checked || false;
-    const rulesAccepted = document.getElementById('rulesHidden')?.checked || false;
     
-    // Get members data
-    const members = [];
-    for (let i = 1; i <= 4; i++) {
-        const nameEl = document.getElementById(`member${i}_name`);
-        const gradeEl = document.getElementById(`member${i}_grade`);
-        const emailEl = document.getElementById(`member${i}_email`);
-        const phoneEl = document.getElementById(`member${i}_phone`);
+    // Get selected events from global selectedEvents object with participant names
+    const selectedEventsWithParticipants = {};
+    const eventsData = {};
+    let totalSelectedEvents = 0;
+    
+    // Event 1: Plitz Blitz (Team of 4)
+    if (window.selectedEvents && window.selectedEvents.plitz) {
+        const members = {
+            member1: document.getElementById('plitz_team1_member1')?.value.trim() || '',
+            member2: document.getElementById('plitz_team1_member2')?.value.trim() || '',
+            member3: document.getElementById('plitz_team1_member3')?.value.trim() || '',
+            member4: document.getElementById('plitz_team1_member4')?.value.trim() || ''
+        };
         
-        const name = nameEl?.value.trim() || '';
-        const grade = gradeEl?.value || '';
-        const email = emailEl?.value.trim() || '';
-        const phone = phoneEl?.value.trim() || '';
+        selectedEventsWithParticipants.plitz = {
+            eventName: 'Plitz Blitz',
+            selected: true,
+            teamSize: 4,
+            participants: [members.member1, members.member2, members.member3, members.member4]
+        };
         
-        // Only include members with at least a name
-        if (name) {
-            members.push({
-                memberId: i,
-                name: name,
-                grade: grade,
-                email: email,
-                phone: phone,
-                isRequired: i <= 2 // First 2 members are required
-            });
-        }
+        eventsData.plitzBlitz = {
+            eventName: 'Plitz Blitz',
+            teamSize: 4,
+            team1: members
+        };
+        totalSelectedEvents++;
+    } else {
+        selectedEventsWithParticipants.plitz = false;
+    }
+    
+    // Event 2: Panel Discussion (Team of 2)
+    if (window.selectedEvents && window.selectedEvents.panel) {
+        const participants = {
+            participant1: document.getElementById('panel_participant1')?.value.trim() || '',
+            participant2: document.getElementById('panel_participant2')?.value.trim() || ''
+        };
+        
+        selectedEventsWithParticipants.panel = {
+            eventName: 'Panel Discussion',
+            selected: true,
+            teamSize: 2,
+            participants: [participants.participant1, participants.participant2]
+        };
+        
+        eventsData.panelDiscussion = {
+            eventName: 'Panel Discussion',
+            teamSize: 2,
+            participants: participants
+        };
+        totalSelectedEvents++;
+    } else {
+        selectedEventsWithParticipants.panel = false;
+    }
+    
+    // Event 3: Case Study (Team of 2)
+    if (window.selectedEvents && window.selectedEvents.case) {
+        const participants = {
+            participant1: document.getElementById('case_participant1')?.value.trim() || '',
+            participant2: document.getElementById('case_participant2')?.value.trim() || ''
+        };
+        
+        selectedEventsWithParticipants.case = {
+            eventName: 'Case Study',
+            selected: true,
+            teamSize: 2,
+            participants: [participants.participant1, participants.participant2]
+        };
+        
+        eventsData.caseStudy = {
+            eventName: 'Case Study',
+            teamSize: 2,
+            participants: participants
+        };
+        totalSelectedEvents++;
+    } else {
+        selectedEventsWithParticipants.case = false;
+    }
+    
+    // Event 4: Pixel Prophets (Individual)
+    if (window.selectedEvents && window.selectedEvents.pixel) {
+        const participant = document.getElementById('pixel_participant')?.value.trim() || '';
+        
+        selectedEventsWithParticipants.pixel = {
+            eventName: 'Pixel Prophets',
+            selected: true,
+            teamSize: 1,
+            participants: [participant]
+        };
+        
+        eventsData.pixelProphets = {
+            eventName: 'Pixel Prophets',
+            teamSize: 1,
+            participant: participant
+        };
+        totalSelectedEvents++;
+    } else {
+        selectedEventsWithParticipants.pixel = false;
+    }
+    
+    // Event 5: Quiz (Individual)
+    if (window.selectedEvents && window.selectedEvents.quiz) {
+        const participant = document.getElementById('quiz_participant')?.value.trim() || '';
+        
+        selectedEventsWithParticipants.quiz = {
+            eventName: 'Quiz',
+            selected: true,
+            teamSize: 1,
+            participants: [participant]
+        };
+        
+        eventsData.quiz = {
+            eventName: 'Quiz',
+            teamSize: 1,
+            participant: participant
+        };
+        totalSelectedEvents++;
+    } else {
+        selectedEventsWithParticipants.quiz = false;
     }
     
     return {
-        teamInfo: {
-            teamName: teamName,
-            memberCount: members.length
-        },
         schoolInfo: {
             schoolName: schoolName,
             teacherName: teacherName,
             teacherContact: teacherContact,
             teacherEmail: teacherEmail
         },
-        members: members,
+        selectedEvents: selectedEventsWithParticipants,
+        selectedEventsCount: totalSelectedEvents,
+        eventsData: eventsData,
         agreements: {
-            termsAccepted: termsAccepted,
-            rulesAccepted: rulesAccepted
+            termsAccepted: termsAccepted
         }
     };
-};
+}
 
 // Validate registration data
 function validateRegistrationData(data) {
     const errors = [];
-    
-    // Validate team info
-    if (!data.teamInfo.teamName) {
-        errors.push('Team name is required');
-    }
     
     // Validate school info
     if (!data.schoolInfo.schoolName) {
@@ -186,74 +268,63 @@ function validateRegistrationData(data) {
     }
     if (!data.schoolInfo.teacherEmail) {
         errors.push('Teacher email is required');
-    };
+    }
     
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (data.schoolInfo.teacherEmail && !emailRegex.test(data.schoolInfo.teacherEmail)) {
         errors.push('Teacher email format is invalid');
-    };
-    
-    // Validate phone format
-    const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
-    if (data.schoolInfo.teacherContact && !phoneRegex.test(data.schoolInfo.teacherContact)) {
-        errors.push('Teacher contact format is invalid');
-    };
-    
-    // Validate members
-    if (data.members.length < 2) {
-        errors.push('At least 2 team members are required');
     }
     
-    if (data.members.length > 4) {
-        errors.push('Maximum 4 team members allowed');
+    // Validate phone format (should have 10 digits)
+    const phoneDigits = data.schoolInfo.teacherContact.replace(/\D/g, '');
+    const cleanPhone = phoneDigits.startsWith('91') ? phoneDigits.substring(2) : phoneDigits;
+    if (cleanPhone.length !== 10) {
+        errors.push('Teacher contact must be a valid 10-digit phone number');
     }
     
-    // Validate required members
-    const requiredMembers = data.members.filter(m => m.isRequired);
-    if (requiredMembers.length < 2) {
-        errors.push('First 2 team members are required');
+    // Validate at least one event is selected
+    if (data.selectedEventsCount === 0) {
+        errors.push('At least one event must be selected');
     }
     
-    // Validate member data
-    data.members.forEach((member, index) => {
-        if (!member.name) {
-            errors.push(`Member ${index + 1} name is required`);
+    // Validate event-specific data
+    if (data.eventsData.plitzBlitz) {
+        const team = data.eventsData.plitzBlitz.team1;
+        if (!team.member1 || !team.member2 || !team.member3 || !team.member4) {
+            errors.push('Plitz Blitz requires all 4 team members');
         }
-        if (!member.grade) {
-            errors.push(`Member ${index + 1} grade is required`);
-        }
-        if (!member.email) {
-            errors.push(`Member ${index + 1} email is required`);
-        }
-        if (!member.phone) {
-            errors.push(`Member ${index + 1} phone is required`);
-        }
-        
-        // Validate email format
-        if (member.email && !emailRegex.test(member.email)) {
-            errors.push(`Member ${index + 1} email format is invalid`);
-        }
-        
-        // Validate phone format
-        if (member.phone && !phoneRegex.test(member.phone)) {
-            errors.push(`Member ${index + 1} phone format is invalid`);
-        }
-    });
+    }
     
-    // Check for duplicate emails
-    const allEmails = [data.schoolInfo.teacherEmail, ...data.members.map(m => m.email)];
-    const emailSet = new Set(allEmails.map(email => email.toLowerCase()));
-    if (emailSet.size !== allEmails.length) {
-        errors.push('All email addresses must be unique');
+    if (data.eventsData.panelDiscussion) {
+        const participants = data.eventsData.panelDiscussion.participants;
+        if (!participants.participant1 || !participants.participant2) {
+            errors.push('Panel Discussion requires both participants');
+        }
+    }
+    
+    if (data.eventsData.caseStudy) {
+        const participants = data.eventsData.caseStudy.participants;
+        if (!participants.participant1 || !participants.participant2) {
+            errors.push('Case Study requires both participants');
+        }
+    }
+    
+    if (data.eventsData.pixelProphets) {
+        if (!data.eventsData.pixelProphets.participant) {
+            errors.push('Pixel Prophets requires a participant');
+        }
+    }
+    
+    if (data.eventsData.quiz) {
+        if (!data.eventsData.quiz.participant) {
+            errors.push('Quiz requires a participant');
+        }
     }
     
     // Validate agreements
     if (!data.agreements.termsAccepted) {
         errors.push('You must accept the terms and conditions');
-    }
-    if (!data.agreements.rulesAccepted) {
-        errors.push('You must agree to follow competition rules');
     }
     
     return {
@@ -272,13 +343,14 @@ async function saveRegistrationToFirebase(data) {
         registrationDate: new Date().toLocaleDateString('en-IN'),
         registrationTime: new Date().toLocaleTimeString('en-IN'),
         
-        teamInfo: data.teamInfo,
         schoolInfo: data.schoolInfo,
-        members: data.members,
+        selectedEvents: data.selectedEvents,
+        selectedEventsCount: data.selectedEventsCount,
+        eventsData: data.eventsData,
         agreements: data.agreements,
         
         status: 'registered',
-        source: 'web_registration_v2',
+        source: 'web_event_registration_v2',
         metadata: {
             userAgent: navigator.userAgent,
             referrer: document.referrer,
@@ -287,18 +359,27 @@ async function saveRegistrationToFirebase(data) {
     };
     
     // Save main registration
-    const registrationRef = ref(database, `registrations/${registrationId}`);
+    const registrationRef = ref(database, `event_registrations/${registrationId}`);
     await set(registrationRef, registrationData);
     
     // Save summary for quick queries
-    const summaryRef = ref(database, `registration_summary/${registrationId}`);
+    const summaryRef = ref(database, `event_registration_summary/${registrationId}`);
+    
+    // Extract event names for summary
+    const eventNamesList = [];
+    for (let key in data.selectedEvents) {
+        if (data.selectedEvents[key] && data.selectedEvents[key].selected) {
+            eventNamesList.push(data.selectedEvents[key].eventName);
+        }
+    }
+    
     await set(summaryRef, {
         id: registrationId,
-        teamName: data.teamInfo.teamName,
         schoolName: data.schoolInfo.schoolName,
         teacherName: data.schoolInfo.teacherName,
         teacherEmail: data.schoolInfo.teacherEmail,
-        memberCount: data.members.length,
+        selectedEvents: eventNamesList,
+        eventCount: data.selectedEventsCount,
         registrationDate: registrationData.registrationDate,
         status: 'registered'
     });
@@ -308,17 +389,25 @@ async function saveRegistrationToFirebase(data) {
 
 // Show success message
 function showSuccessMessage(registrationId, data) {
+    // Get list of event names
+    const eventNames = [];
+    for (let key in data.selectedEvents) {
+        if (data.selectedEvents[key] && data.selectedEvents[key].selected) {
+            eventNames.push(data.selectedEvents[key].eventName);
+        }
+    }
+    const eventsList = eventNames.join(', ');
+    
     const message = `
 🎉 REGISTRATION SUCCESSFUL! 🎉
 
 Registration ID: ${registrationId}
-Team: ${data.teamInfo.teamName}
 School: ${data.schoolInfo.schoolName}
 Teacher: ${data.schoolInfo.teacherName}
-Members: ${data.members.length}
+Events: ${eventsList}
 
-✅ Your team has been successfully registered for CRS Conclave 2.0
-📧 Confirmation emails will be sent to all team members and teacher
+✅ Your registration has been successfully submitted for CRS Conclave 2.0
+📧 Confirmation email will be sent to ${data.schoolInfo.teacherEmail}
 💾 Please save your Registration ID: ${registrationId}
 
 Welcome to CRS Conclave 2.0! 🚀
@@ -329,10 +418,14 @@ Welcome to CRS Conclave 2.0! 🚀
     // Log success
     console.log('🎉 Registration successful:', {
         id: registrationId,
-        team: data.teamInfo.teamName,
         school: data.schoolInfo.schoolName,
-        members: data.members.length
+        events: eventNames
     });
+    
+    // Show modal if available
+    if (typeof window.showSuccessModal === 'function') {
+        window.showSuccessModal(registrationId, data.schoolInfo.schoolName);
+    }
 }
 
 // Show error message
@@ -350,9 +443,9 @@ Please correct these issues and try again.
     alert(errorMessage);
 }
 
-// Override the existing form submission
+// Initialize Firebase Integration
 function initializeFirebaseIntegration() {
-    console.log('🔥 Initializing Firebase integration...');
+    console.log('🔥 Initializing Firebase integration for event registration...');
     
     // Create connection indicator
     createConnectionIndicator();
@@ -360,18 +453,18 @@ function initializeFirebaseIntegration() {
     // Test Firebase connection
     setTimeout(testFirebaseConnection, 1000);
     
-    // Find and override the form submission
-    const form = document.getElementById('teamRegistrationForm');
+    // Find the form
+    const form = document.getElementById('eventRegistrationForm');
     if (!form) {
-        console.error('❌ Registration form not found');
+        console.error('❌ Event registration form not found');
         return;
     }
     
-    // Remove existing event listeners by cloning the form
+    // Override form submission
     const newForm = form.cloneNode(true);
     form.parentNode.replaceChild(newForm, form);
     
-    // Add new Firebase-enabled event listener
+    // Add Firebase-enabled event listener
     newForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -384,13 +477,15 @@ function initializeFirebaseIntegration() {
         }
         
         const submitBtn = document.getElementById('submitBtn');
-        const originalText = submitBtn.textContent;
+        const originalText = submitBtn?.textContent || 'Register for Events';
         
         try {
             // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Registering Team...';
-            submitBtn.style.background = 'rgba(156, 163, 175, 0.8)';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Registering...';
+                submitBtn.style.background = 'rgba(156, 163, 175, 0.8)';
+            }
             
             // Get form data
             const formData = getRegistrationData();
@@ -415,33 +510,55 @@ function initializeFirebaseIntegration() {
             // Reset form
             newForm.reset();
             
-            // Reset dynamic elements
-            if (window.currentMemberCount) {
-                window.currentMemberCount = 2;
-                document.querySelector('[data-member="3"]').style.display = 'none';
-                document.querySelector('[data-member="4"]').style.display = 'none';
-                if (window.updateMemberCount) window.updateMemberCount();
+            // Reset event selections if available
+            if (window.selectedEvents) {
+                for (let eventName in window.selectedEvents) {
+                    window.selectedEvents[eventName] = false;
+                    const checkbox = document.getElementById(`${eventName}_checkbox`);
+                    const container = document.getElementById(`event_${eventName}`);
+                    const content = document.getElementById(`${eventName}_content`);
+                    const collapseIcon = document.getElementById(`${eventName}_collapse`);
+                    
+                    if (checkbox) checkbox.classList.remove('checked');
+                    if (container) container.classList.add('disabled');
+                    if (content) content.classList.remove('expanded');
+                    if (collapseIcon) collapseIcon.classList.add('collapsed');
+                }
             }
             
             // Reset checkboxes
-            document.getElementById('termsCheckbox')?.classList.remove('checked');
-            document.getElementById('rulesCheckbox')?.classList.remove('checked');
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            const termsHidden = document.getElementById('termsHidden');
+            if (termsCheckbox) termsCheckbox.classList.remove('checked');
+            if (termsHidden) termsHidden.checked = false;
+            
+            // Update submit button state
+            if (typeof window.updateSubmitButton === 'function') {
+                window.updateSubmitButton();
+            }
             
         } catch (error) {
             console.error('❌ Registration failed:', error);
             alert(`❌ Registration failed:\n\n${error.message}\n\nPlease try again or contact support if the problem persists.`);
         } finally {
             // Restore button
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                submitBtn.style.background = '';
+                
+                // Re-check button state
+                if (typeof window.updateSubmitButton === 'function') {
+                    window.updateSubmitButton();
+                }
+            }
         }
     });
     
     console.log('✅ Firebase integration initialized');
 }
 
-// Debug functions for testing
+// Debug functions
 window.firebaseDebug = {
     testConnection: testFirebaseConnection,
     getFormData: getRegistrationData,
@@ -450,7 +567,12 @@ window.firebaseDebug = {
         return validateRegistrationData(data);
     },
     checkConnection: () => isFirebaseConnected,
-    generateId: generateRegistrationId
+    generateId: generateRegistrationId,
+    showSelectedEvents: () => {
+        console.log('Selected Events:', window.selectedEvents);
+        const data = getRegistrationData();
+        console.log('Form Data:', data);
+    }
 };
 
 // Initialize when DOM is loaded
@@ -460,4 +582,4 @@ if (document.readyState === 'loading') {
     initializeFirebaseIntegration();
 }
 
-console.log('🔥 CRS Conclave 2.0 Firebase Integration Loaded');
+console.log('🔥 CRS Conclave 2.0 Event Registration Firebase Integration Loaded');
